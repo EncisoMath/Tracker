@@ -139,7 +139,7 @@ async function buscar() {
         }, {});
 
         let encontrado = false;
-        cons asignaturas = ['ESTADISTICA'];
+        const asignaturas = ['ESTADISTICA'];
         const datosAsignaturas = [];
 
         for (const row of rows) {
