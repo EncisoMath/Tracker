@@ -151,7 +151,7 @@ async function buscar() {
                 const NOMBRE = columns[columnMap['NOMBRE']];
                 const SEDE = columns[columnMap['SEDE']];
                 const GRADO = columns[columnMap['GRADO']];
-                const RANK = columns[columnMap['RANKING']];
+                const RANKING = columns[columnMap['RANKING']];
 
                 if (ANIO === anio && PRUEBA === prueba && ID === codigo) {
                     asignaturas.forEach(asignatura => {
@@ -242,7 +242,7 @@ async function buscar() {
                                 <div class="bold-font" style="color: orange; font-size: 35px; margin-top: 0;">Ranking</div>
                                 <div class="bold-font" style="font-size: 32px; display: flex; align-items: center; justify-content: center; gap: 10px;">
                                     <img src="Iconos/RANKING.png" style="width: 35px; height: 35px;">
-                                    <span>1</span>
+                                    <span>${RANKING}</span>
                                 </div>
                             </div>
                         </div>
