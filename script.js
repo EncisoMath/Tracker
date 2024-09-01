@@ -179,8 +179,7 @@ async function buscar() {
                                     <tr>
                                         <td style="padding: 8px; text-align: center; font-size: 18px">
                                             <div style="display: flex; flex-direction: column; align-items: center;">
-                                                ${(() => {
-                                                    <img src=`${asignatura.icono}.png` style="width: 50px; height: 50px;">
+                                                <img src=`${asignatura.icono}.png` style="width: 50px; height: 50px;">
                                                 <span>${asignatura.nombre}</span>
                                             </div>
                                         </td>
