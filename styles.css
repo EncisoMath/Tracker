@@ -1,18 +1,18 @@
 @font-face {
     font-family: 'BoldFont';
-    src: url('Bold.ttf') format('truetype');
+    src: url('Fuentes/Bold.ttf') format('truetype');
     font-weight: bold;
 }
 
 @font-face {
     font-family: 'MediumFont';
-    src: url('Medium.ttf') format('truetype');
+    src: url('Fuentes/Medium.ttf') format('truetype');
     font-weight: normal;
 }
 
 @font-face {
     font-family: 'NumeroFont';
-    src: url('Numero.ttf') format('truetype');
+    src: url('Fuentes/Numero.ttf') format('truetype');
     font-weight: normal;
 }
 
@@ -29,7 +29,7 @@ body {
 .banner {
     width: 100%;
     height: 100px; /* Altura fija para el banner */
-    background: url('banner.png') no-repeat center center; /* Centra la imagen y no la repite */
+    background: url('Datos/banner.png') no-repeat center center; /* Centra la imagen y no la repite */
     background-size: cover; /* Estira la imagen para cubrir el área del banner */
     position: relative; /* Hacer que el banner sea el contenedor de la imagen de logo */
 }
@@ -49,7 +49,7 @@ body {
     left: 0;
     width: 100px;
     height: 100px;
-    background: url('logo.png') no-repeat center center;
+    background: url('Datos/logo.png') no-repeat center center;
     background-size: contain; /* Mantener la relación de aspecto del logo */
 }
 
