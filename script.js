@@ -180,13 +180,7 @@ async function buscar() {
                                         <td style="padding: 8px; text-align: center; font-size: 18px">
                                             <div style="display: flex; flex-direction: column; align-items: center;">
                                                 ${(() => {
-                                                    const Icon = `${asignatura.icono}.png`;                                        
-                                                    return `<img 
-                                                        src="${Icon}"
-                                                        style="width: 50px; height: 50px;"
-                                                        onerror="this.src='https://via.placeholder.com/60';"
-                                                        alt="${asignatura.nombre}">`;
-                                                })()}
+                                                    <img src=`${asignatura.icono}.png` style="width: 50px; height: 50px;">
                                                 <span>${asignatura.nombre}</span>
                                             </div>
                                         </td>
