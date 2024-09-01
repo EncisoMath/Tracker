@@ -1,7 +1,7 @@
 // Función para cargar los años únicos desde el archivo CSV
 async function cargarAnios() {
     try {
-        const response = await fetch('datos.csv');
+        const response = await fetch('Datos/datos.csv');
         if (!response.ok) {
             throw new Error(`Error al cargar el CSV: ${response.statusText}`);
         }
@@ -37,7 +37,7 @@ async function cargarPruebas() {
     if (!anio) return;
 
     try {
-        const response = await fetch('datos.csv');
+        const response = await fetch('Datos/datos.csv');
         if (!response.ok) {
             throw new Error(`Error al cargar el CSV: ${response.statusText}`);
         }
@@ -83,9 +83,9 @@ function mostrarCampoCodigo() {
 
 async function cargarNombresAsignaturas() {
     try {
-        const response = await fetch('NombreAsignatura.csv');
+        const response = await fetch('Datos/NombreAsignatura.csv');
         if (!response.ok) {
-            throw new Error(`Error al cargar NombreAsignatura.csv: ${response.statusText}`);
+            throw new Error(`Error al cargar Datos/NombreAsignatura.csv: ${response.statusText}`);
         }
         const data = await response.text();
         const rows = data.split('\n').slice(1); // Saltar la cabecera
@@ -122,7 +122,7 @@ async function buscar() {
 
     try {
         const nombreAsignaturaMap = await cargarNombresAsignaturas();
-        const response = await fetch('datos.csv');
+        const response = await fetch('Datos/datos.csv');
         if (!response.ok) {
             throw new Error(`Error al cargar el CSV: ${response.statusText}`);
         }
