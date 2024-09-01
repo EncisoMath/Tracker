@@ -240,7 +240,7 @@ async function buscar() {
                             <div class="resultado-right">
                                 <div class="bold-font" style="color: orange; font-size: 35px; margin-top: 0;">Ranking</div>
                                 <div class="bold-font" style="font-size: 32px; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                                    <img src="RANKING.png" style="width: 35px; height: 35px;">
+                                    <img src="Iconos/RANKING.png" style="width: 35px; height: 35px;">
                                     <span>2/3</span>
                                 </div>
                             </div>
@@ -248,7 +248,7 @@ async function buscar() {
                         <hr>
                         ${tablaNotas}
                         <h3>Aquí está tu examen:</h3>
-                        <img src="${imgExamen}";" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
+                        <img src="${PRUEBA}/${imgExamen}";" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
                     `;
 
                     encontrado = true;
