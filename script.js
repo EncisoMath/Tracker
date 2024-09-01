@@ -248,7 +248,7 @@ async function buscar() {
                         <hr>
                         ${tablaNotas}
                         <h3>Aquí está tu examen:</h3>
-<img src="PRUEBA OBJETIVA ROQUISTA 2024-2/${imgExamen}" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
+<img src="PRUEBA OBJETIVA ROQUISTA 2024-2/4412.jpg" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
                     `;
 
                     encontrado = true;
