@@ -209,7 +209,7 @@ async function buscar() {
 
                     // Buscar la imagen del examen según el ID
                     for (const ext of imgExtensions) {
-                        imgExamen = `PRUEBA OBJETIVA ROQUISTA 2024-2/${idAlumno}.${ext}`;
+                        imgExamen = `${PRUEBA}/${idAlumno}.${ext}`;
                         try {
                             const response = await fetch(imgExamen);
                             if (response.ok) {
