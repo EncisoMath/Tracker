@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Búsqueda de Notas</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Asegúrate de que la ruta sea correcta -->
+</head>
+<body>
+    <div class="banner">
+        <div class="logo"></div>
+    </div>
+    <div class="content">
+        <select id="ano" onchange="cargarPruebas()">
+            <option value="">Selecciona un año</option>
+        </select>
+        <div id="container-prueba" style="display: none;">
+            <select id="prueba" onchange="mostrarCampoCodigo()">
+                <option value="">Selecciona una prueba</option>
+            </select>
+        </div>
+        <div id="busqueda" style="display: none;">
+            <input type="text" id="codigo" placeholder="Escribe tu ID de 4 dígitos">
+            <button onclick="buscar()">Buscar</button>
+        </div>
+        <div id="resultado"></div>
+    </div>
+    <div class="credits">
+        Ruben Enciso | IED Roque de los Ríos Valle | El Retén, Magdalena | 2024
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

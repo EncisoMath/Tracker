@@ -1,0 +1,158 @@
+@font-face {
+    font-family: 'BoldFont';
+    src: url('Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'MediumFont';
+    src: url('Medium.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'NumeroFont';
+    src: url('Numero.ttf') format('truetype');
+    font-weight: normal;
+}
+
+body {
+    font-size: 18px; /* Ajustar el tamaño del texto en general */
+    font-family: 'MediumFont', Arial, sans-serif; /* Usar la fuente Medium como primera opción */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #f4f4f4; /* Color de fondo general */
+    text-align: center; /* Centrar el texto en el cuerpo */
+}
+
+.banner {
+    width: 100%;
+    height: 100px; /* Altura fija para el banner */
+    background: url('banner.png') no-repeat center center; /* Centra la imagen y no la repite */
+    background-size: cover; /* Estira la imagen para cubrir el área del banner */
+    position: relative; /* Hacer que el banner sea el contenedor de la imagen de logo */
+}
+
+.numero-font {
+    font-family: 'NumeroFont', Arial, sans-serif; /* Aplica la fuente NumeroFont con alternativas */
+}
+
+.bold-font {
+    font-family: 'BoldFont', sans-serif; /* Cambia 'BoldFont' por el nombre real de tu fuente */
+    font-weight: bold;
+}
+
+.logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    background: url('logo.png') no-repeat center center;
+    background-size: contain; /* Mantener la relación de aspecto del logo */
+}
+
+.content {
+    background-color: #ffffff; /* Color de fondo del cuadro de contenido */
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centrar el contenido dentro del cuadro */
+}
+
+input[type="text"], select, button {
+    font-size: 18px;
+    padding: 10px;
+    margin: 10px;
+    width: calc(100% - 42px); /* Ajustar el ancho para el padding y border */
+    max-width: 400px; /* Limitar el ancho máximo */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
+
+#resultado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Contenedor principal para los resultados */
+.resultados-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1000px; /* Ajusta según el ancho deseado */
+    margin: 0 auto; /* Centra el bloque en la página */
+    margin-bottom: 5px; /* Espacio debajo del contenedor */
+}
+
+/* Estilo del bloque izquierdo (Alumno, Sede y Grado) */
+.resultado-left {
+    width: 65%;
+    text-align: left;
+}
+
+/* Estilo del bloque derecho (Ranking) */
+.resultado-right {
+    width: 35%;
+    text-align: center;
+    font-size: 30px;
+}
+
+.resultado-item {
+    margin-bottom: 10px;
+}
+
+/* Estilo de la línea separadora */
+.linea-separadora {
+    border: 2px dotted gray;
+    margin-bottom: 15px; /* Espacio debajo del contenedor */
+    width: 100%; /* Ancho completo del contenedor */
+}
+
+/* Estilo de la tabla */
+.tabla-notas {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 25px;
+}
+
+.resultado-label {
+    font-family: 'BoldFont'; /* Usar la fuente Bold para las etiquetas */
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.resultado-dato {
+    font-family: 'NumeroFont'; /* Usar la fuente NumeroFont para los datos numéricos */
+    font-size: 24px;
+}
+
+.separador {
+    border-left: 2px solid #000;
+    height: 40px;
+    margin: 0 10px;
+}
+
+.credits {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@viewport {
+    width: device-width;
+    initial-scale: 1.0;
+    user-scalable: no;
+}
