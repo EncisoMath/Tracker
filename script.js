@@ -139,49 +139,39 @@ async function buscar() {
         }, {});
 
         let encontrado = false;
+        const asignaturas = [];
 
-        
-        async function procesarPruebas() {
-            const prueba = document.getElementById('prueba').value;
+const prueba = document.getElementById('prueba').value;
 
-            try {
-                // Leer el archivo CSV
-                const response = await fetch('Pruebas.csv');
-                const csvText = await response.text();
-                
-                // Parsear el CSV manualmente
-                const filas = csvText.trim().split('\n');
-                const encabezados = filas[0].split(',');
+            // Leer el archivo CSV usando fetch y promesas
+            fetch('Pruebas.csv')
+                .then(response => response.text())
+                .then(csvText => {
+                    // Parsear el CSV manualmente
+                    const filas = csvText.trim().split('\n');
+                    const encabezados = filas[0].split(',');
 
-                // Buscar la fila correspondiente al valor de prueba
-                for (let i = 1; i < filas.length; i++) {
-                    const columnas = filas[i].split(',');
-                    if (columnas[0] === prueba) {
-                        // Llenar la matriz asignaturas con los nombres de columnas que tengan valor 1
-                        for (let j = 1; j < columnas.length; j++) {
-                            if (columnas[j] === '1') {
-                                asignaturas.push(encabezados[j]);
+                    // Buscar la fila correspondiente al valor de prueba
+                    for (let i = 1; i < filas.length; i++) {
+                        const columnas = filas[i].split(',');
+                        if (columnas[0] === prueba) {
+                            // Llenar la matriz asignaturas con los nombres de columnas que tengan valor 1
+                            for (let j = 1; j < columnas.length; j++) {
+                                if (columnas[j] === '1') {
+                                    asignaturas.push(encabezados[j]);
+                                }
                             }
+                            break; // Detener el loop una vez que se encuentra la fila deseada
                         }
-                        break; // Detener el loop una vez que se encuentra la fila deseada
                     }
-                }
 
-                console.log(asignaturas); // Mostrar las asignaturas encontradas
+                    // Aquí puedes usar el array asignaturas según tus necesidades
+                });
 
-            } catch (error) {
-                console.error('Error al leer o procesar el archivo CSV:', error);
-            }
-        }
 
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
         
         const datosAsignaturas = [];
 
