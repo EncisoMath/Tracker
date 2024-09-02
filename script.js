@@ -141,7 +141,6 @@ async function buscar() {
         let encontrado = false;
         const asignaturas = [];
 
-        function cargarAsignaturas() {
             const prueba = document.getElementById('prueba').value;
             const archivoCSV = 'Datos/Pruebas.csv';
 
@@ -163,15 +162,7 @@ async function buscar() {
                             console.log(asignaturas); // ["INGLES", "FRANCES", "ALEMAN"]
                             break;
                         }
-                    }
-
-                    // Puedes hacer algo con la lista asignaturas aquí
-                    console.log(asignaturas);
-                })
-                .catch(error => console.error('Error al leer el archivo CSV:', error));
-        };
-
-
+                    };
 
 
 
