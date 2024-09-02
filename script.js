@@ -116,52 +116,90 @@ async function buscar() {
     const prueba = document.getElementById('prueba').value;
 
     if (codigo.length !== 4) {
-        resultado.innerHTML = 'Por favor, ingresa un código de 4 dígitos.';
+        resultado.innerHTML = 'Código inválido';
         return;
     }
 
     try {
+        // Cargar nombres de asignaturas
         const nombreAsignaturaMap = await cargarNombresAsignaturas();
-        const response = await fetch('Datos/datos.csv');
-        if (!response.ok) {
-            throw new Error(`Error al cargar el CSV: ${response.statusText}`);
+
+        // Cargar Pruebas.csv para obtener las asignaturas
+        const responsePruebas = await fetch('Datos/Pruebas.csv');
+        if (!responsePruebas.ok) {
+            throw new Error(`Error al cargar Pruebas.csv: ${responsePruebas.statusText}`);
         }
-        const data = await response.text();
-        const rows = data.split('\n');
+        const dataPruebas = await responsePruebas.text();
+        const rowsPruebas = dataPruebas.split('\n').map(row => row.trim()).filter(row => row);
 
-        // Obtener los nombres de las columnas
-        const header = rows.shift().split(',').map(col => col.trim()); // Obtener la primera fila como encabezado
+        // Obtener los nombres de las columnas en Pruebas.csv
+        const headerPruebas = rowsPruebas.shift().split(',').map(col => col.trim());
 
-        // Crear un mapa de nombres de columna a índices
-        const columnMap = header.reduce((map, column, index) => {
+        // Crear un mapa de nombres de columna a índices en Pruebas.csv
+        const columnMapPruebas = headerPruebas.reduce((map, column, index) => {
             map[column] = index;
             return map;
         }, {});
 
-        let encontrado = false;
-        const asignaturas = ['ARITMETICA', 'ESTADISTICA', 'GEOMETRIA', "EDUFISICA", "INGLES", "ETICA", "BIOLOGIA", "FISICA", "QUIMICA", "RELIGION", "FILOSOFIA", "CONSTITUCION", "HISTORIA", "GEOGRAFIA", "INFORMATICA", "LENGUACASTELLANA", "LECTURACRITICA", "ARTISTICA"]; // Añadir más asignaturas si es necesario
-        const datosAsignaturas = [];
+        let asignaturas = [];
 
-        for (const row of rows) {
-            const columns = row.split(',').map(col => col.trim());
-            if (columns.length) {
-                const ANIO = columns[columnMap['ANIO']];
-                const PRUEBA = columns[columnMap['PRUEBA']];
-                const ID = columns[columnMap['ID']];
-                const NOMBRE = columns[columnMap['NOMBRE']];
-                const SEDE = columns[columnMap['SEDE']];
-                const GRADO = columns[columnMap['GRADO']];
-                const RANKING = columns[columnMap['RANKING']];
+        // Leer el archivo Pruebas.csv para obtener las asignaturas
+        for (const row of rowsPruebas) {
+            const columnsPruebas = row.split(',').map(col => col.trim());
+            if (columnsPruebas.length) {
+                const ANIO = columnsPruebas[columnMapPruebas['ANIO']];
+                const PRUEBA = columnsPruebas[columnMapPruebas['NOMBREPRUEBA']];
+                const ID = columnsPruebas[columnMapPruebas['ID']];
 
                 if (ANIO === anio && PRUEBA === prueba && ID === codigo) {
+                    // Obtener las asignaturas desde la columna 'ASIGNATURAS'
+                    asignaturas = columnsPruebas[columnMapPruebas['ASIGNATURAS']].split(';').map(asignatura => asignatura.trim());
+                    break; // Salir del bucle una vez que se encuentra el código
+                }
+            }
+        }
+
+        if (asignaturas.length === 0) {
+            resultado.innerHTML = 'No se encontraron asignaturas para el código ingresado.';
+            return;
+        }
+
+        // Cargar datos del archivo datos.csv
+        const responseDatos = await fetch('Datos/datos.csv');
+        if (!responseDatos.ok) {
+            throw new Error(`Error al cargar datos.csv: ${responseDatos.statusText}`);
+        }
+        const dataDatos = await responseDatos.text();
+        const rowsDatos = dataDatos.split('\n').map(row => row.trim()).filter(row => row);
+
+        // Obtener los nombres de las columnas en datos.csv
+        const headerDatos = rowsDatos.shift().split(',').map(col => col.trim());
+
+        // Crear un mapa de nombres de columna a índices en datos.csv
+        const columnMapDatos = headerDatos.reduce((map, column, index) => {
+            map[column] = index;
+            return map;
+        }, {});
+
+        const datosAsignaturas = [];
+
+        // Leer el archivo datos.csv para obtener los datos
+        for (const rowDatos of rowsDatos) {
+            const columnsDatos = rowDatos.split(',').map(col => col.trim());
+            if (columnsDatos.length) {
+                const ANIO_DATOS = columnsDatos[columnMapDatos['ANIO']];
+                const PRUEBA_DATOS = columnsDatos[columnMapDatos['NOMBREPRUEBA']];
+                const ID_DATOS = columnsDatos[columnMapDatos['ID']];
+
+                if (ANIO_DATOS === anio && PRUEBA_DATOS === prueba && ID_DATOS === codigo) {
                     asignaturas.forEach(asignatura => {
                         const nombreAsignatura = nombreAsignaturaMap.get(asignatura) || asignatura;
                         datosAsignaturas.push({
                             nombre: nombreAsignatura,
                             icono: asignatura,
-                            respuestasCorrectas: columns[columnMap[asignatura]],
-                            cantidadPreguntas: columns[columnMap[`Q_${asignatura}`]],
-                            resultado: columns[columnMap[`R_${asignatura}`]]
+                            respuestasCorrectas: columnsDatos[columnMapDatos[asignatura]],
+                            cantidadPreguntas: columnsDatos[columnMapDatos[`Q_${asignatura}`]],
+                            resultado: columnsDatos[columnMapDatos[`R_${asignatura}`]]
                         });
                     });
 
@@ -249,7 +287,7 @@ async function buscar() {
                         <hr>
                         ${tablaNotas}
                         <h3>Aquí está tu examen:</h3>
-                        <img src="${imgExamen}";" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
+                        <img src="${imgExamen}" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
                     `;
 
                     encontrado = true;
@@ -264,7 +302,40 @@ async function buscar() {
 
     } catch (error) {
         console.error('Error al buscar resultados:', error);
+        resultado.innerHTML = 'Error al buscar resultados. Por favor, intenta de nuevo más tarde.';
     }
+}
+
+async function cargarNombresAsignaturas() {
+    const response = await fetch('Datos/asignaturas.csv');
+    if (!response.ok) {
+        throw new Error(`Error al cargar asignaturas.csv: ${response.statusText}`);
+    }
+    const data = await response.text();
+    const rows = data.split('\n').map(row => row.trim()).filter(row => row);
+
+    // Obtener los nombres de las columnas en asignaturas.csv
+    const header = rows.shift().split(',').map(col => col.trim());
+
+    // Crear un mapa de nombres de columna a índices en asignaturas.csv
+    const columnMap = header.reduce((map, column, index) => {
+        map[column] = index;
+        return map;
+    }, {});
+
+    const nombresMap = new Map();
+
+    // Leer el archivo asignaturas.csv
+    for (const row of rows) {
+        const columns = row.split(',').map(col => col.trim());
+        if (columns.length) {
+            const id = columns[columnMap['ID']];
+            const nombre = columns[columnMap['NOMBRE']];
+            nombresMap.set(id, nombre);
+        }
+    }
+
+    return nombresMap;
 }
 
 // Cargar los años al cargar la página
