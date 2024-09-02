@@ -139,11 +139,10 @@ async function buscar() {
         }, {});
 
         let encontrado = false;
-        //const asignaturas = [];
-        const prueba = document.getElementById('prueba').value;
+        const asignaturas = [];
 
-
-        const prueba = document.getElementById('prueba').value;
+        function cargarAsignaturas() {
+            const prueba = document.getElementById('prueba').value;
             const archivoCSV = 'Datos/Pruebas.csv';
 
             fetch(archivoCSV)
@@ -164,8 +163,20 @@ async function buscar() {
                             console.log(asignaturas); // ["INGLES", "FRANCES", "ALEMAN"]
                             break;
                         }
-                    };
+                    }
 
+                    // Puedes hacer algo con la lista asignaturas aquí
+                    console.log(asignaturas);
+                })
+                .catch(error => console.error('Error al leer el archivo CSV:', error));
+        };
+
+
+
+
+
+
+        
 
 
         
