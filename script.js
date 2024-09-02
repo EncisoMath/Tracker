@@ -3,7 +3,7 @@ async function cargarAnios() {
     try {
         const response = await fetch('Datos/Pruebas.csv');
         if (!response.ok) {
-            throw new Error(Error al cargar el CSV: ${response.statusText});
+            throw new Error(`Error al cargar el CSV: ${response.statusText}`);
         }
         const data = await response.text();
         const rows = data.split('\n').slice(1); // Saltar la cabecera
@@ -39,7 +39,7 @@ async function cargarPruebas() {
     try {
         const response = await fetch('Datos/Pruebas.csv');
         if (!response.ok) {
-            throw new Error(Error al cargar el CSV: ${response.statusText});
+            throw new Error(`Error al cargar el CSV: ${response.statusText}`);
         }
         const data = await response.text();
         const rows = data.split('\n').slice(1); // Saltar la cabecera
@@ -85,7 +85,7 @@ async function cargarNombresAsignaturas() {
     try {
         const response = await fetch('Datos/NombreAsignatura.csv');
         if (!response.ok) {
-            throw new Error(Error al cargar Datos/NombreAsignatura.csv: ${response.statusText});
+            throw new Error(`Error al cargar Datos/NombreAsignatura.csv: ${response.statusText}`);
         }
         const data = await response.text();
         const rows = data.split('\n').slice(1); // Saltar la cabecera
@@ -124,7 +124,7 @@ async function buscar() {
         const nombreAsignaturaMap = await cargarNombresAsignaturas();
         const response = await fetch('Datos/datos.csv');
         if (!response.ok) {
-            throw new Error(Error al cargar el CSV: ${response.statusText});
+            throw new Error(`Error al cargar el CSV: ${response.statusText}`);
         }
         const data = await response.text();
         const rows = data.split('\n');
@@ -160,13 +160,13 @@ async function buscar() {
                             nombre: nombreAsignatura,
                             icono: asignatura,
                             respuestasCorrectas: columns[columnMap[asignatura]],
-                            cantidadPreguntas: columns[columnMap[Q_${asignatura}]],
-                            resultado: columns[columnMap[R_${asignatura}]]
+                            cantidadPreguntas: columns[columnMap[`Q_${asignatura}`]],
+                            resultado: columns[columnMap[`R_${asignatura}`]]
                         });
                     });
 
                     // Construir la tabla con las notas
-                    const tablaNotas = 
+                    const tablaNotas = `
                         <table border="1" style="border-collapse: collapse; width: 100%; font-size: 25px;"> <!-- Establece tamaño de letra general -->
                             <thead>
                                 <tr>
@@ -176,17 +176,17 @@ async function buscar() {
                                 </tr>
                             </thead>
                             <tbody>
-                                ${datosAsignaturas.map(asignatura => 
+                                ${datosAsignaturas.map(asignatura => `
                                     <tr>
                                         <td style="padding: 8px; text-align: center; font-size: 18px">
                                             <div style="display: flex; flex-direction: column; align-items: center;">
                                                 ${(() => {
-                                                    const Icon = Iconos/${asignatura.icono}.png;                                        
-                                                    return <img 
+                                                    const Icon = `Iconos/${asignatura.icono}.png`;                                        
+                                                    return `<img 
                                                         src="${Icon}"
                                                         style="width: 50px; height: 50px;"
                                                         onerror="this.src='https://via.placeholder.com/60';"
-                                                        alt="${asignatura.nombre}">;
+                                                        alt="${asignatura.nombre}">`;
                                                 })()}
                                                 <span>${asignatura.nombre}</span>
                                             </div>
@@ -198,10 +198,10 @@ async function buscar() {
                                         </td>
                                         <td class="numero-font" style="padding: 8px;">${asignatura.resultado}</td>
                                     </tr>
-                                ).join('')}
+                                `).join('')}
                             </tbody>
                         </table>
-                    ;
+                    `;
 
                     // Aquí se agrega el mensaje y la imagen del examen después de la tabla de notas
                     const idAlumno = codigo; // El ID del alumno es el código ingresado
@@ -210,19 +210,19 @@ async function buscar() {
 
                     // Buscar la imagen del examen según el ID
                     for (const ext of imgExtensions) {
-                        imgExamen = ${PRUEBA}/${idAlumno}.${ext};
+                        imgExamen = `${PRUEBA}/${idAlumno}.${ext}`;
                         try {
                             const response = await fetch(imgExamen);
                             if (response.ok) {
                                 break; // Si encuentra la imagen, se sale del bucle
                             }
                         } catch (error) {
-                            console.error(Imagen no encontrada: ${imgExamen});
+                            console.error(`Imagen no encontrada: ${imgExamen}`);
                         }
                     }
 
                     // Añadir el mensaje y la imagen al HTML
-                    resultado.innerHTML = 
+                    resultado.innerHTML = `
                         <h1>Resultados</h1>
                         <div class="resultados-container">
                             <!-- Bloque izquierdo -->
@@ -250,7 +250,7 @@ async function buscar() {
                         ${tablaNotas}
                         <h3>Aquí está tu examen:</h3>
                         <img src="${imgExamen}";" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
-                    ;
+                    `;
 
                     encontrado = true;
                     break;
