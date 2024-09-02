@@ -1,7 +1,7 @@
 // Función para cargar los años únicos desde el archivo CSV
 async function cargarAnios() {
     try {
-        const response = await fetch('Datos/datos.csv');
+        const response = await fetch('Datos/Pruebas.csv');
         if (!response.ok) {
             throw new Error(`Error al cargar el CSV: ${response.statusText}`);
         }
