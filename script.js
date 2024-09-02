@@ -37,7 +37,7 @@ async function cargarPruebas() {
     if (!anio) return;
 
     try {
-        const response = await fetch('Datos/datos.csv');
+        const response = await fetch('Datos/Pruebas.csv');
         if (!response.ok) {
             throw new Error(`Error al cargar el CSV: ${response.statusText}`);
         }
@@ -49,9 +49,9 @@ async function cargarPruebas() {
         rows.forEach(row => {
             const columns = row.split(',');
             if (columns.length) {
-                const [ANIO, PRUEBA] = columns.map(col => col.trim()); // Extraer valores de ANIO y PRUEBA
+                const [ANIO, NOMBREPRUEBA] = columns.map(col => col.trim()); // Extraer valores de ANIO y PRUEBA
                 if (ANIO === anio) {
-                    pruebas.add(PRUEBA);
+                    pruebas.add(NOMBREPRUEBA);
                 }
             }
         });
