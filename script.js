@@ -139,54 +139,36 @@ async function buscar() {
         }, {});
 
         let encontrado = false;
-        const asignaturas = [];
+        //const asignaturas = [];
+        const prueba = document.getElementById('prueba').value;
 
-const prueba = document.getElementById('prueba').value;
 
-function procesarPruebas() {
-            const prueba = document.getElementById('prueba').value;
+        const prueba = document.getElementById('prueba').value;
+            const archivoCSV = 'Datos/Pruebas.csv';
 
-            // Leer el archivo CSV usando fetch y promesas
-            fetch('Pruebas.csv')
+            fetch(archivoCSV)
                 .then(response => response.text())
-                .then(csvText => {
-                    // Parsear el CSV manualmente
-                    const filas = csvText.trim().split('\n');
-                    const encabezados = filas[0].split(',');
+                .then(text => {
+                    const lines = text.split('\n').map(line => line.trim()).filter(line => line);
+                    const header = lines[0].split(',');
+                    const pruebaIndex = header.indexOf('NOMBREPRUEBA');
+                    const asignaturasIndex = header.indexOf('ASIGNATURAS');
 
-                    // Buscar la fila correspondiente al valor de prueba en la columna NOMBREPRUEBA
-                    let filaEncontrada = null;
+                    let asignaturas = [];
 
-                    for (let i = 1; i < filas.length; i++) {
-                        const columnas = filas[i].split(',');
-                        if (columnas[1] === prueba) { // La columna NOMBREPRUEBA es la columna 2 (índice 1)
-                            filaEncontrada = columnas;
-                            break; // Detener el loop una vez que se encuentra la fila deseada
+                    for (let i = 1; i < lines.length; i++) {
+                        const cells = lines[i].split(',');
+                        const nombrePrueba = cells[pruebaIndex];
+                        if (nombrePrueba === prueba) {
+                            asignaturas = cells[asignaturasIndex].split(';');
+                            console.log(asignaturas); // ["INGLES", "FRANCES", "ALEMAN"]
+                            break;
                         }
-                    }
-
-                    if (filaEncontrada) {
-                        // Llenar la matriz asignaturas con los nombres de columnas que tengan valor 1
-                        for (let j = 2; j < filaEncontrada.length; j++) { // Comienza en la columna 2 para omitir NOMBREPRUEBA
-                            if (filaEncontrada[j] === '1') {
-                                asignaturas.push(encabezados[j]);
-                            }
-                        }
-
-                        // Aquí puedes usar el array asignaturas según tus necesidades
-                        // Por ejemplo, mostrar en una alerta o en otra parte de la interfaz
-                    } else {
-                        // Manejo si la prueba no se encuentra
-                        alert('No se encontró la prueba especificada.');
-                    }
-                })
-                .catch(error => {
-                    // Manejar errores aquí si es necesario
-                    alert('Error al leer o procesar el archivo CSV.');
-                });
-        };
+                    };
 
 
+
+        
 
         
         const datosAsignaturas = [];
