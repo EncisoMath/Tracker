@@ -116,150 +116,182 @@ async function buscar() {
     const prueba = document.getElementById('prueba').value;
 
     if (codigo.length !== 4) {
-        resultado.innerHTML = 'Por favor, ingresa un código de 4 dígitos.';
+        resultado.innerHTML = document.getElementById('prueba').value;
         return;
     }
 
     try {
-        const nombreAsignaturaMap = await cargarNombresAsignaturas();
-        const response = await fetch('Datos/datos.csv');
-        if (!response.ok) {
-            throw new Error(`Error al cargar el CSV: ${response.statusText}`);
+        const nombreAsignaturaMap = await cargarNombresAsignaturas(); // Cargar nombres de asignaturas si es necesario
+
+        // Cargar datos del archivo Pruebas.csv
+        const responsePruebas = await fetch('Datos/Pruebas.csv');
+        if (!responsePruebas.ok) {
+            throw new Error(`Error al cargar Pruebas.csv: ${responsePruebas.statusText}`);
         }
-        const data = await response.text();
-        const rows = data.split('\n');
+        const dataPruebas = await responsePruebas.text();
+        const rowsPruebas = dataPruebas.split('\n').map(row => row.trim()).filter(row => row);
 
-        // Obtener los nombres de las columnas
-        const header = rows.shift().split(',').map(col => col.trim()); // Obtener la primera fila como encabezado
+        // Obtener los nombres de las columnas en Pruebas.csv
+        const headerPruebas = rowsPruebas.shift().split(',').map(col => col.trim());
 
-        // Crear un mapa de nombres de columna a índices
-        const columnMap = header.reduce((map, column, index) => {
+        // Crear un mapa de nombres de columna a índices en Pruebas.csv
+        const columnMapPruebas = headerPruebas.reduce((map, column, index) => {
             map[column] = index;
             return map;
         }, {});
 
         let encontrado = false;
-        const asignaturas = ['ARITMETICA', 'ESTADISTICA', 'GEOMETRIA', "EDUFISICA", "INGLES", "ETICA", "BIOLOGIA", "FISICA", "QUIMICA", "RELIGION", "FILOSOFIA", "CONSTITUCION", "HISTORIA", "GEOGRAFIA", "INFORMATICA", "LENGUACASTELLANA", "LECTURACRITICA", "ARTISTICA"]; // Añadir más asignaturas si es necesario
-        const datosAsignaturas = [];
+        const asignaturas = [];
 
-        for (const row of rows) {
-            const columns = row.split(',').map(col => col.trim());
-            if (columns.length) {
-                const ANIO = columns[columnMap['ANIO']];
-                const PRUEBA = columns[columnMap['PRUEBA']];
-                const ID = columns[columnMap['ID']];
-                const NOMBRE = columns[columnMap['NOMBRE']];
-                const SEDE = columns[columnMap['SEDE']];
-                const GRADO = columns[columnMap['GRADO']];
-                const RANKING = columns[columnMap['RANKING']];
+        // Leer el archivo Pruebas.csv para obtener las asignaturas
+        for (const row of rowsPruebas) {
+            const columnsPruebas = row.split(',').map(col => col.trim());
+            if (columnsPruebas.length) {
+                const ANIO = columnsPruebas[columnMapPruebas['ANIO']];
+                const PRUEBA = columnsPruebas[columnMapPruebas['NOMBREPRUEBA']];
+                const ID = columnsPruebas[columnMapPruebas['ID']];
 
                 if (ANIO === anio && PRUEBA === prueba && ID === codigo) {
-                    asignaturas.forEach(asignatura => {
-                        const nombreAsignatura = nombreAsignaturaMap.get(asignatura) || asignatura;
-                        datosAsignaturas.push({
-                            nombre: nombreAsignatura,
-                            icono: asignatura,
-                            respuestasCorrectas: columns[columnMap[asignatura]],
-                            cantidadPreguntas: columns[columnMap[`Q_${asignatura}`]],
-                            resultado: columns[columnMap[`R_${asignatura}`]]
-                        });
-                    });
+                    // Obtener las asignaturas desde la columna 'ASIGNATURAS'
+                    asignaturas.push(...columnsPruebas[columnMapPruebas['ASIGNATURAS']].split(';').map(asignatura => asignatura.trim()));
 
-                    // Construir la tabla con las notas
-                    const tablaNotas = `
-                        <table border="1" style="border-collapse: collapse; width: 100%; font-size: 25px;"> <!-- Establece tamaño de letra general -->
-                            <thead>
-                                <tr>
-                                    <th style="padding: 8px; text-align: center; font-size: 25px">Asignatura</th>
-                                    <th style="padding: 8px; text-align: center; font-size: 25px">Aciertos</th>
-                                    <th style="padding: 8px; text-align: center; font-size: 25px">Puntaje</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${datosAsignaturas.map(asignatura => `
-                                    <tr>
-                                        <td style="padding: 8px; text-align: center; font-size: 18px">
-                                            <div style="display: flex; flex-direction: column; align-items: center;">
-                                                ${(() => {
-                                                    const Icon = `Iconos/${asignatura.icono}.png`;                                        
-                                                    return `<img 
-                                                        src="${Icon}"
-                                                        style="width: 50px; height: 50px;"
-                                                        onerror="this.src='https://via.placeholder.com/60';"
-                                                        alt="${asignatura.nombre}">`;
-                                                })()}
-                                                <span>${asignatura.nombre}</span>
+                    // Aquí se añaden los datos a datosAsignaturas
+                    const responseDatos = await fetch('Datos/datos.csv');
+                    if (!responseDatos.ok) {
+                        throw new Error(`Error al cargar datos.csv: ${responseDatos.statusText}`);
+                    }
+                    const dataDatos = await responseDatos.text();
+                    const rowsDatos = dataDatos.split('\n').map(row => row.trim()).filter(row => row);
+
+                    // Obtener los nombres de las columnas en datos.csv
+                    const headerDatos = rowsDatos.shift().split(',').map(col => col.trim());
+
+                    // Crear un mapa de nombres de columna a índices en datos.csv
+                    const columnMapDatos = headerDatos.reduce((map, column, index) => {
+                        map[column] = index;
+                        return map;
+                    }, {});
+
+                    const datosAsignaturas = [];
+
+                    for (const rowDatos of rowsDatos) {
+                        const columnsDatos = rowDatos.split(',').map(col => col.trim());
+                        if (columnsDatos.length) {
+                            const ANIO_DATOS = columnsDatos[columnMapDatos['ANIO']];
+                            const PRUEBA_DATOS = columnsDatos[columnMapDatos['NOMBREPRUEBA']];
+                            const ID_DATOS = columnsDatos[columnMapDatos['ID']];
+
+                            if (ANIO_DATOS === anio && PRUEBA_DATOS === prueba && ID_DATOS === codigo) {
+                                asignaturas.forEach(asignatura => {
+                                    const nombreAsignatura = nombreAsignaturaMap.get(asignatura) || asignatura;
+                                    datosAsignaturas.push({
+                                        nombre: nombreAsignatura,
+                                        icono: asignatura,
+                                        respuestasCorrectas: columnsDatos[columnMapDatos[asignatura]],
+                                        cantidadPreguntas: columnsDatos[columnMapDatos[`Q_${asignatura}`]],
+                                        resultado: columnsDatos[columnMapDatos[`R_${asignatura}`]]
+                                    });
+                                });
+
+                                // Construir la tabla con las notas
+                                const tablaNotas = `
+                                    <table border="1" style="border-collapse: collapse; width: 100%; font-size: 25px;"> <!-- Establece tamaño de letra general -->
+                                        <thead>
+                                            <tr>
+                                                <th style="padding: 8px; text-align: center; font-size: 25px">Asignatura</th>
+                                                <th style="padding: 8px; text-align: center; font-size: 25px">Aciertos</th>
+                                                <th style="padding: 8px; text-align: center; font-size: 25px">Puntaje</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${datosAsignaturas.map(asignatura => `
+                                                <tr>
+                                                    <td style="padding: 8px; text-align: center; font-size: 18px">
+                                                        <div style="display: flex; flex-direction: column; align-items: center;">
+                                                            ${(() => {
+                                                                const Icon = `Iconos/${asignatura.icono}.png`;                                        
+                                                                return `<img 
+                                                                    src="${Icon}"
+                                                                    style="width: 50px; height: 50px;"
+                                                                    onerror="this.src='https://via.placeholder.com/60';"
+                                                                    alt="${asignatura.nombre}">`;
+                                                            })()}
+                                                            <span>${asignatura.nombre}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="numero-font" style="padding: 8px;">
+                                                        <span>${asignatura.respuestasCorrectas}</span>
+                                                        <span style="font-size: 15px;"> / </span> 
+                                                        <span style="font-size: 15px;">${asignatura.cantidadPreguntas}</span>
+                                                    </td>
+                                                    <td class="numero-font" style="padding: 8px;">${asignatura.resultado}</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                `;
+
+                                // Aquí se agrega el mensaje y la imagen del examen después de la tabla de notas
+                                const idAlumno = codigo; // El ID del alumno es el código ingresado
+                                const imgExtensions = ['jpg', 'png']; // Extensiones de imagen permitidas
+                                let imgExamen = '';
+
+                                // Buscar la imagen del examen según el ID
+                                for (const ext of imgExtensions) {
+                                    imgExamen = `${PRUEBA}/${idAlumno}.${ext}`;
+                                    try {
+                                        const response = await fetch(imgExamen);
+                                        if (response.ok) {
+                                            break; // Si encuentra la imagen, se sale del bucle
+                                        }
+                                    } catch (error) {
+                                        console.error(`Imagen no encontrada: ${imgExamen}`);
+                                    }
+                                }
+
+                                // Añadir el mensaje y la imagen al HTML
+                                resultado.innerHTML = `
+                                    <h1>Resultados</h1>
+                                    <div class="resultados-container">
+                                        <!-- Bloque izquierdo -->
+                                        <div class="resultado-left">
+                                            <div class="resultado-item">
+                                                <span class="bold-font" style="color: orange;font-size: 22px;">Alumno: </span>
+                                                <span>${NOMBRE}</span>
                                             </div>
-                                        </td>
-                                        <td class="numero-font" style="padding: 8px;">
-                                            <span>${asignatura.respuestasCorrectas}</span>
-                                            <span style="font-size: 15px;"> / </span> 
-                                            <span style="font-size: 15px;">${asignatura.cantidadPreguntas}</span>
-                                        </td>
-                                        <td class="numero-font" style="padding: 8px;">${asignatura.resultado}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    `;
+                                            <div class="resultado-item">
+                                                <span class="bold-font" style="color: orange;font-size: 22px;">Grado y Sede: </span>
+                                                <span>${GRADO} ${SEDE}</span>
+                                            </div>
+                                        </div>
+                        
+                                        <!-- Bloque derecho -->
+                                        <div class="resultado-right">
+                                            <div class="bold-font" style="color: orange; font-size: 35px; margin-top: 0;">Ranking</div>
+                                            <div class="bold-font" style="font-size: 32px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                                                <img src="Iconos/RANKING.png" style="width: 35px; height: 35px;">
+                                                <span>${RANKING}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    ${tablaNotas}
+                                    <h3>Aquí está tu examen:</h3>
+                                    <img src="${imgExamen}" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
+                                `;
 
-                    // Aquí se agrega el mensaje y la imagen del examen después de la tabla de notas
-                    const idAlumno = codigo; // El ID del alumno es el código ingresado
-                    const imgExtensions = ['jpg', 'png']; // Extensiones de imagen permitidas
-                    let imgExamen = '';
-
-                    // Buscar la imagen del examen según el ID
-                    for (const ext of imgExtensions) {
-                        imgExamen = `${PRUEBA}/${idAlumno}.${ext}`;
-                        try {
-                            const response = await fetch(imgExamen);
-                            if (response.ok) {
-                                break; // Si encuentra la imagen, se sale del bucle
+                                encontrado = true;
+                                break;
                             }
-                        } catch (error) {
-                            console.error(`Imagen no encontrada: ${imgExamen}`);
                         }
                     }
 
-                    // Añadir el mensaje y la imagen al HTML
-                    resultado.innerHTML = `
-                        <h1>Resultados</h1>
-                        <div class="resultados-container">
-                            <!-- Bloque izquierdo -->
-                            <div class="resultado-left">
-                                <div class="resultado-item">
-                                    <span class="bold-font" style="color: orange;font-size: 22px;">Alumno: </span>
-                                    <span>${NOMBRE}</span>
-                                </div>
-                                <div class="resultado-item">
-                                    <span class="bold-font" style="color: orange;font-size: 22px;">Grado y Sede: </span>
-                                    <span>${GRADO} ${SEDE}</span>
-                                </div>
-                            </div>
-                    
-                            <!-- Bloque derecho -->
-                            <div class="resultado-right">
-                                <div class="bold-font" style="color: orange; font-size: 35px; margin-top: 0;">Ranking</div>
-                                <div class="bold-font" style="font-size: 32px; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                                    <img src="Iconos/RANKING.png" style="width: 35px; height: 35px;">
-                                    <span>${RANKING}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        ${tablaNotas}
-                        <h3>Aquí está tu examen:</h3>
-                        <img src="${imgExamen}";" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
-                    `;
-
-                    encontrado = true;
+                    if (!encontrado) {
+                        resultado.innerHTML = 'No se encontraron resultados para el código ingresado.';
+                    }
                     break;
                 }
             }
-        }
-
-        if (!encontrado) {
-            resultado.innerHTML = 'No se encontraron resultados para el código ingresado.';
         }
 
     } catch (error) {
