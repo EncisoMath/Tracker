@@ -121,13 +121,13 @@ async function buscar() {
     }
 
     try {
-        const nombreAsignaturaMap = await cargarNombresAsignaturas();
-        const response = await fetch('Datos/datos.csv');
+        const nombreAsignaturaMap = await cargarNombresAsignaturas(); // Si esta función está definida en otro lugar
+        const response = await fetch('Datos/Pruebas.csv'); // La ruta de tu CSV
         if (!response.ok) {
             throw new Error(`Error al cargar el CSV: ${response.statusText}`);
         }
         const data = await response.text();
-        const rows = data.split('\n');
+        const rows = data.split('\n').map(row => row.trim()).filter(row => row); // Limpieza de filas vacías
 
         // Obtener los nombres de las columnas
         const header = rows.shift().split(',').map(col => col.trim()); // Obtener la primera fila como encabezado
@@ -141,52 +141,18 @@ async function buscar() {
         let encontrado = false;
         const asignaturas = [];
 
-            const prueba = document.getElementById('prueba').value;
-            const archivoCSV = 'Datos/Pruebas.csv';
-
-            fetch(archivoCSV)
-                .then(response => response.text())
-                .then(text => {
-                    const lines = text.split('\n').map(line => line.trim()).filter(line => line);
-                    const header = lines[0].split(',');
-                    const pruebaIndex = header.indexOf('NOMBREPRUEBA');
-                    const asignaturasIndex = header.indexOf('ASIGNATURAS');
-
-                    let asignaturas = [];
-
-                    for (let i = 1; i < lines.length; i++) {
-                        const cells = lines[i].split(',');
-                        const nombrePrueba = cells[pruebaIndex];
-                        if (nombrePrueba === prueba) {
-                            asignaturas = cells[asignaturasIndex].split(';');
-                            console.log(asignaturas); // ["INGLES", "FRANCES", "ALEMAN"]
-                            break;
-                        }
-                    };
-
-
-
-
-        
-
-
-        
-
-        
-        const datosAsignaturas = [];
-
         for (const row of rows) {
             const columns = row.split(',').map(col => col.trim());
             if (columns.length) {
                 const ANIO = columns[columnMap['ANIO']];
-                const PRUEBA = columns[columnMap['PRUEBA']];
+                const PRUEBA = columns[columnMap['NOMBREPRUEBA']]; // Ajusta el nombre a 'NOMBREPRUEBA'
                 const ID = columns[columnMap['ID']];
-                const NOMBRE = columns[columnMap['NOMBRE']];
-                const SEDE = columns[columnMap['SEDE']];
-                const GRADO = columns[columnMap['GRADO']];
-                const RANKING = columns[columnMap['RANKING']];
 
                 if (ANIO === anio && PRUEBA === prueba && ID === codigo) {
+                    // Obtener las asignaturas desde la columna 'ASIGNATURAS'
+                    asignaturas.push(...columns[columnMap['ASIGNATURAS']].split(';').map(asignatura => asignatura.trim()));
+
+                    // Aquí se añaden los datos a datosAsignaturas como antes
                     asignaturas.forEach(asignatura => {
                         const nombreAsignatura = nombreAsignaturaMap.get(asignatura) || asignatura;
                         datosAsignaturas.push({
@@ -282,7 +248,7 @@ async function buscar() {
                         <hr>
                         ${tablaNotas}
                         <h3>Aquí está tu examen:</h3>
-                        <img src="${imgExamen}";" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
+                        <img src="${imgExamen}" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
                     `;
 
                     encontrado = true;
