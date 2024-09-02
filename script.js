@@ -139,7 +139,50 @@ async function buscar() {
         }, {});
 
         let encontrado = false;
-        const asignaturas = ['ARITMETICA', 'ESTADISTICA', 'GEOMETRIA', "EDUFISICA", "INGLES", "ETICA", "BIOLOGIA", "FISICA", "QUIMICA", "RELIGION", "FILOSOFIA", "CONSTITUCION", "HISTORIA", "GEOGRAFIA", "INFORMATICA", "LENGUACASTELLANA", "LECTURACRITICA", "ARTISTICA"]; // Añadir más asignaturas si es necesario
+
+        
+        async function procesarPruebas() {
+            const prueba = document.getElementById('prueba').value;
+
+            try {
+                // Leer el archivo CSV
+                const response = await fetch('Pruebas.csv');
+                const csvText = await response.text();
+                
+                // Parsear el CSV manualmente
+                const filas = csvText.trim().split('\n');
+                const encabezados = filas[0].split(',');
+
+                // Buscar la fila correspondiente al valor de prueba
+                for (let i = 1; i < filas.length; i++) {
+                    const columnas = filas[i].split(',');
+                    if (columnas[0] === prueba) {
+                        // Llenar la matriz asignaturas con los nombres de columnas que tengan valor 1
+                        for (let j = 1; j < columnas.length; j++) {
+                            if (columnas[j] === '1') {
+                                asignaturas.push(encabezados[j]);
+                            }
+                        }
+                        break; // Detener el loop una vez que se encuentra la fila deseada
+                    }
+                }
+
+                console.log(asignaturas); // Mostrar las asignaturas encontradas
+
+            } catch (error) {
+                console.error('Error al leer o procesar el archivo CSV:', error);
+            }
+        }
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
         const datosAsignaturas = [];
 
         for (const row of rows) {
