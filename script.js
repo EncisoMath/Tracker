@@ -116,7 +116,7 @@ async function buscar() {
     const prueba = document.getElementById('prueba').value;
 
     if (codigo.length !== 4) {
-        resultado.innerHTML = 'Por favor, ingresa un código de 4 dígitos.';
+        resultado.innerHTML = 'prueba';
         return;
     }
 
