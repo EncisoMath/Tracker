@@ -143,6 +143,9 @@ async function buscar() {
 
 const prueba = document.getElementById('prueba').value;
 
+function procesarPruebas() {
+            const prueba = document.getElementById('prueba').value;
+
             // Leer el archivo CSV usando fetch y promesas
             fetch('Pruebas.csv')
                 .then(response => response.text())
@@ -151,24 +154,37 @@ const prueba = document.getElementById('prueba').value;
                     const filas = csvText.trim().split('\n');
                     const encabezados = filas[0].split(',');
 
-                    // Buscar la fila correspondiente al valor de prueba
+                    // Buscar la fila correspondiente al valor de prueba en la columna NOMBREPRUEBA
+                    let filaEncontrada = null;
+
                     for (let i = 1; i < filas.length; i++) {
                         const columnas = filas[i].split(',');
-                        if (columnas[0] === prueba) {
-                            // Llenar la matriz asignaturas con los nombres de columnas que tengan valor 1
-                            for (let j = 1; j < columnas.length; j++) {
-                                if (columnas[j] === '1') {
-                                    asignaturas.push(encabezados[j]);
-                                }
-                            }
+                        if (columnas[1] === prueba) { // La columna NOMBREPRUEBA es la columna 2 (índice 1)
+                            filaEncontrada = columnas;
                             break; // Detener el loop una vez que se encuentra la fila deseada
                         }
                     }
 
-                    // Aquí puedes usar el array asignaturas según tus necesidades
+                    if (filaEncontrada) {
+                        // Llenar la matriz asignaturas con los nombres de columnas que tengan valor 1
+                        for (let j = 2; j < filaEncontrada.length; j++) { // Comienza en la columna 2 para omitir NOMBREPRUEBA
+                            if (filaEncontrada[j] === '1') {
+                                asignaturas.push(encabezados[j]);
+                            }
+                        }
+
+                        // Aquí puedes usar el array asignaturas según tus necesidades
+                        // Por ejemplo, mostrar en una alerta o en otra parte de la interfaz
+                    } else {
+                        // Manejo si la prueba no se encuentra
+                        alert('No se encontró la prueba especificada.');
+                    }
+                })
+                .catch(error => {
+                    // Manejar errores aquí si es necesario
+                    alert('Error al leer o procesar el archivo CSV.');
                 });
-
-
+        };
 
 
 
