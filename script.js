@@ -108,17 +108,6 @@ async function cargarNombresAsignaturas() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 // Función para buscar y mostrar los resultados del alumno
 async function buscar() {
     const codigo = document.getElementById('codigo').value.trim();
@@ -183,7 +172,7 @@ async function buscar() {
                                 <tr>
                                     <th style="padding: 8px; text-align: center; font-size: 25px">Asignatura</th>
                                     <th style="padding: 8px; text-align: center; font-size: 25px">Aciertos</th>
-                                    <th style="padding: 8px; text-align: center; font-size: 25px">Nota ${holi}</th>
+                                    <th style="padding: 8px; text-align: center; font-size: 25px">Nota</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -280,4 +269,3 @@ async function buscar() {
 
 // Cargar los años al cargar la página
 document.addEventListener('DOMContentLoaded', cargarAnios);
-
