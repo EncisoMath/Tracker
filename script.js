@@ -87,54 +87,39 @@ let konichiwa = []; // Lista para almacenar los datos separados
 
 async function cargarCSV() {
     try {
+        // Carga el archivo CSV
         const response = await fetch('Datos/Pruebas.csv');
-        console.log('Respuesta del fetch:', response);
-        
-        if (!response.ok) {
-            throw new Error('No se pudo obtener el archivo CSV. Estado: ' + response.status);
-        }
-
         const csvText = await response.text();
-        console.log('Texto del CSV:', csvText);
-        
+
+        // Divide las filas del CSV y extrae los encabezados
         const filas = csvText.split('\n').filter(row => row.trim() !== ''); // Elimina filas vacías
-        console.log('Filas:', filas);
-        
         const encabezados = filas[0].split(',').map(header => header.trim());
-        console.log('Encabezados:', encabezados);
         
+        // Encuentra los índices de las columnas relevantes
         const indiceNombrePrueba = encabezados.indexOf('NOMBREPRUEBA');
         const indiceAsignaturas = encabezados.indexOf('ASIGNATURAS');
 
-        if (indiceNombrePrueba === -1 || indiceAsignaturas === -1) {
-            throw new Error('No se encontraron las columnas NOMBREPRUEBA o ASIGNATURAS');
-        }
+        // Inicializa la variable 'holi' para almacenar el resultado
+        let holi = '';
 
+        // Recorre las filas para encontrar la coincidencia con 'pruebaBuscada'
         for (let i = 1; i < filas.length; i++) {
             const fila = filas[i].split(',').map(field => field.trim());
             if (fila[indiceNombrePrueba] === pruebaBuscada) {
-                holi = fila[indiceAsignaturas];
-                break;
+                holi = fila[indiceAsignaturas]; // Guarda el resultado en 'holi'
+                break; // Termina el bucle cuando se encuentra el resultado
             }
         }
 
+        // Si no se encontró la prueba buscada
         if (!holi) {
             holi = 'Prueba no encontrada';
         }
 
-        // Crear la cadena con el valor de holi
-        const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi} - Aciertos</th>`;
-        
-        // Insertar el HTML en el <thead> de la tabla
-        document.querySelector('#miTabla thead').innerHTML = htmlString;
+        console.log('Resultado en holi:', holi); // Muestra el resultado en la consola
 
     } catch (error) {
         console.error("Error al leer el archivo CSV:", error);
-        holi = 'Error al cargar los datos';
-        
-        // Manejar el error insertando el mensaje en el <thead> de la tabla
-        const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi}</th>`;
-        document.querySelector('#miTabla thead').innerHTML = htmlString;
     }
 }
 
