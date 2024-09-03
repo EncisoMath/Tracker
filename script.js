@@ -82,7 +82,7 @@ function mostrarCampoCodigo() {
 }
 
 let holi = 'dededede'; // Constante para almacenar el resultado
-let konichiwa = []; // Lista para almacenar los datos separados
+let asignaturas = []; // Lista para almacenar los datos separados
 
 async function cargarCSV() {
     const pruebaBuscada = document.getElementById('prueba').value;
@@ -106,14 +106,14 @@ async function cargarCSV() {
                 holi = fila[indiceAsignaturas]; // Actualiza la variable global 'holi'
                 
                 // Divide el valor de 'holi' en una lista usando el separador ';'
-                konichiwa = holi.split(';').map(item => item.trim());
+                asignaturas = holi.split(';').map(item => item.trim());
                 break; // Termina el bucle cuando se encuentra el resultado
             }
         }
 
-        // Verifica el contenido de 'holi' y 'konichiwa' en la consola
+        // Verifica el contenido de 'holi' y 'asignaturas' en la consola
         console.log('holi:', holi);
-        console.log('konichiwa:', konichiwa);
+        console.log('asignaturas:', asignaturas);
         
     } catch (error) {
         console.error("Error al leer el archivo CSV:", error);
@@ -180,7 +180,6 @@ async function buscar() {
         }, {});
 
         let encontrado = false;
-        const asignaturas = ['ARITMETICA', 'ESTADISTICA', 'GEOMETRIA', "EDUFISICA", "INGLES", "ETICA", "BIOLOGIA", "FISICA", "QUIMICA", "RELIGION", "FILOSOFIA", "CONSTITUCION", "HISTORIA", "GEOGRAFIA", "INFORMATICA", "LENGUACASTELLANA", "LECTURACRITICA", "ARTISTICA"]; // Añadir más asignaturas si es necesario
         const datosAsignaturas = [];
 
         for (const row of rows) {
