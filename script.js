@@ -139,7 +139,7 @@ async function buscar() {
         }, {});
 
         let encontrado = false;{
-        const Holi = ${PRUEBA};
+        const holi = ${PRUEBA};
         const asignaturas = ['ARITMETICA', 'ESTADISTICA', 'GEOMETRIA', "EDUFISICA", "INGLES", "ETICA", "BIOLOGIA", "FISICA", "QUIMICA", "RELIGION", "FILOSOFIA", "CONSTITUCION", "HISTORIA", "GEOGRAFIA", "INFORMATICA", "LENGUACASTELLANA", "LECTURACRITICA", "ARTISTICA"]; // Añadir más asignaturas si es necesario
         const datosAsignaturas = [];
 
@@ -171,7 +171,7 @@ async function buscar() {
                         <table border="1" style="border-collapse: collapse; width: 100%; font-size: 25px;"> <!-- Establece tamaño de letra general -->
                             <thead>
                                 <tr>
-                                    <th style="padding: 8px; text-align: center; font-size: 25px">Asignatura${Holi}</th>
+                                    <th style="padding: 8px; text-align: center; font-size: 25px">Asignatura${holi}</th>
                                     <th style="padding: 8px; text-align: center; font-size: 25px">Aciertos</th>
                                     <th style="padding: 8px; text-align: center; font-size: 25px">Nota</th>
                                 </tr>
