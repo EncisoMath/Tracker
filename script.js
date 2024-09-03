@@ -134,6 +134,7 @@ async function cargarNombresAsignaturas() {
                 holi = 'Error al cargar los datos';
             }
         }
+        window.onload = cargarCSV;
 
 
 
