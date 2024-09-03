@@ -159,6 +159,7 @@ async function cargarNombresAsignaturas() {
 
 // Función para buscar y mostrar los resultados del alumno
 async function buscar() {
+    cargarCSV();
     const codigo = document.getElementById('codigo').value.trim();
     const resultado = document.getElementById('resultado');
     const anio = document.getElementById('ano').value;
