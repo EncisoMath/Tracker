@@ -210,7 +210,7 @@ async function buscar() {
 
                     // Buscar la imagen del examen según el ID
                     for (const ext of imgExtensions) {
-                        imgExamen = `${PRUEBA}/${idAlumno}.${ext}`;
+                        imgExamen = `Soportes/${PRUEBA}/${idAlumno}.${ext}`;
                         try {
                             const response = await fetch(imgExamen);
                             if (response.ok) {
