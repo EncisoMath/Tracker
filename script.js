@@ -110,6 +110,11 @@ async function cargarCSV() {
                 break; // Termina el bucle cuando se encuentra el resultado
             }
         }
+
+        // Verifica el contenido de 'holi' y 'konichiwa' en la consola
+        console.log('holi:', holi);
+        console.log('konichiwa:', konichiwa);
+        
     } catch (error) {
         console.error("Error al leer el archivo CSV:", error);
     }
