@@ -70,6 +70,7 @@ async function cargarPruebas() {
     } catch (error) {
         console.error('Error al cargar las pruebas:', error);
     }
+    cargarCSV();
 }
 
 // Función para mostrar el campo de código cuando se selecciona una prueba
