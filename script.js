@@ -109,7 +109,8 @@ async function cargarNombresAsignaturas() {
 
 
 
-
+        const pruebaBuscada = "PRUEBA OBJETIVA ROQUISTA 2024-2S";
+        let holi = ''; // Constante para almacenar el resultado
 
 
 
