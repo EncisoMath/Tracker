@@ -80,6 +80,10 @@ function mostrarCampoCodigo() {
     }
 }
 
+const pruebaBuscada = "PRUEBA OBJETIVA ROQUISTA 2024-2S";
+let holi = ''; // Constante para almacenar el resultado
+let konichiwa = []; // Lista para almacenar los datos separados
+
 
 async function cargarNombresAsignaturas() {
     try {
