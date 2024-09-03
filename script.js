@@ -120,6 +120,12 @@ async function cargarNombresAsignaturas() {
 
 
 
+
+
+
+
+
+
 // Función para buscar y mostrar los resultados del alumno
 async function buscar() {
     const codigo = document.getElementById('codigo').value.trim();
