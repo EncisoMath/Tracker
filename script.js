@@ -171,7 +171,7 @@ async function buscar() {
                         <table border="1" style="border-collapse: collapse; width: 100%; font-size: 25px;"> <!-- Establece tamaño de letra general -->
                             <thead>
                                 <tr>
-                                    <th style="padding: 8px; text-align: center; font-size: 25px">Asignatura${holi}</th>
+                                    <th style="padding: 8px; text-align: center; font-size: 25px">Asignatura</th>
                                     <th style="padding: 8px; text-align: center; font-size: 25px">Aciertos</th>
                                     <th style="padding: 8px; text-align: center; font-size: 25px">Nota</th>
                                 </tr>
