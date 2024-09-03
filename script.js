@@ -85,7 +85,7 @@ let holi = 'dededede'; // Constante para almacenar el resultado
 let konichiwa = []; // Lista para almacenar los datos separados
 
 async function cargarCSV() {
-        const pruebaBuscada = document.getElementById('prueba').value;
+    const pruebaBuscada = document.getElementById('prueba').value;
     try {
         // Carga el archivo CSV
         const response = await fetch('Datos/Pruebas.csv');
@@ -104,6 +104,9 @@ async function cargarCSV() {
             const fila = filas[i].split(',').map(field => field.trim());
             if (fila[indiceNombrePrueba] === pruebaBuscada) {
                 holi = fila[indiceAsignaturas]; // Actualiza la variable global 'holi'
+                
+                // Divide el valor de 'holi' en una lista usando el separador ';'
+                konichiwa = holi.split(';').map(item => item.trim());
                 break; // Termina el bucle cuando se encuentra el resultado
             }
         }
