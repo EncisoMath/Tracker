@@ -163,7 +163,7 @@ async function buscar() {
 
     try {
         const nombreAsignaturaMap = await cargarNombresAsignaturas();
-        const response = await fetch('Datos/datos.csv');
+        const response = await fetch('Datos/ESTA_MED_DISP_3ER.csv');
         if (!response.ok) {
             throw new Error(`Error al cargar el CSV: ${response.statusText}`);
         }
