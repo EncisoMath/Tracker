@@ -182,7 +182,7 @@ async function buscar() {
 
                     // Construir la tabla con las notas
                     const tablaNotas = `
-                        <table border="1" style="border-collapse: collapse; width: 100%; font-size: 25px;"> <!-- Establece tamaño de letra general -->
+                        <table border="1" style="border-collapse: collapse; width: 100%; font-size: 25px;">
                             <thead>
                                 <tr>
                                     <th style="padding: 8px; text-align: center; font-size: 25px">Asignatura</th>
@@ -196,7 +196,7 @@ async function buscar() {
                                         <td style="padding: 8px; text-align: center; font-size: 18px">
                                             <div style="display: flex; flex-direction: column; align-items: center;">
                                                 ${(() => {
-                                                    const Icon = `Iconos/${asignatura.icono}.png`;                                        
+                                                    const Icon = `Iconos/${asignatura.icono}.png`;
                                                     return `<img 
                                                         src="${Icon}"
                                                         style="width: 50px; height: 50px;"
