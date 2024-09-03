@@ -107,20 +107,6 @@ async function cargarCSV() {
                 break; // Termina el bucle cuando se encuentra el resultado
             }
         }
-
-        // Si no se encontró la prueba buscada
-        if (!holi) {
-            holi = 'Prueba no encontrada';
-        }
-
-        // Inserta el valor de 'holi' en el HTML
-        const theadElement = document.querySelector('#miTabla thead');
-        if (theadElement) {
-            theadElement.innerHTML = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi}</th>`;
-        } else {
-            console.error('Elemento #miTabla thead no encontrado');
-        }
-
     } catch (error) {
         console.error("Error al leer el archivo CSV:", error);
     }
