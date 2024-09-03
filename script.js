@@ -115,7 +115,7 @@ async function cargarNombresAsignaturas() {
         let konichiwa = []; // Lista para almacenar los datos separados
 
 
-        async function cargarCSV() {
+                async function cargarCSV() {
             try {
                 const response = await fetch('Datos/Pruebas.csv');
                 const csvText = await response.text();
@@ -124,7 +124,6 @@ async function cargarNombresAsignaturas() {
                 const indiceNombrePrueba = encabezados.indexOf('NOMBREPRUEBA');
                 const indiceAsignaturas = encabezados.indexOf('ASIGNATURAS');
 
-                // Buscar la prueba y almacenar en holi
                 for (let i = 1; i < filas.length; i++) {
                     const fila = filas[i].split(',').map(field => field.trim());
                     if (fila[indiceNombrePrueba] === pruebaBuscada) {
@@ -133,17 +132,10 @@ async function cargarNombresAsignaturas() {
                     }
                 }
 
-                // Si holi tiene un valor válido, dividirlo y almacenarlo en konichiwa
-                if (holi) {
-                    konichiwa = holi.split(';'); // Dividir los valores de holi por punto y coma
-                } else {
+                if (!holi) {
                     holi = 'Prueba no encontrada';
                 }
 
-                console.log('holi:', holi); // Verificar el contenido de holi
-                console.log('konichiwa:', konichiwa); // Verificar el contenido de la lista konichiwa
-                
-                // Crear la cadena con el valor de holi y mostrarla en la tabla
                 const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi} - Aciertos</th>`;
                 document.querySelector('#miTabla thead').innerHTML = htmlString;
 
@@ -151,7 +143,6 @@ async function cargarNombresAsignaturas() {
                 console.error("Error al leer el archivo CSV:", error);
                 holi = 'Error al cargar los datos';
                 
-                // Manejar el error insertando el mensaje en el <thead> de la tabla
                 const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi}</th>`;
                 document.querySelector('#miTabla thead').innerHTML = htmlString;
             }
