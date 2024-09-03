@@ -70,6 +70,7 @@ async function cargarPruebas() {
     } catch (error) {
         console.error('Error al cargar las pruebas:', error);
     }
+cargarCSV();
 }
 
 // Función para mostrar el campo de código cuando se selecciona una prueba
@@ -183,8 +184,6 @@ async function buscar() {
         let encontrado = false;
         const asignaturas = ['ARITMETICA', 'ESTADISTICA', 'GEOMETRIA', "EDUFISICA", "INGLES", "ETICA", "BIOLOGIA", "FISICA", "QUIMICA", "RELIGION", "FILOSOFIA", "CONSTITUCION", "HISTORIA", "GEOGRAFIA", "INFORMATICA", "LENGUACASTELLANA", "LECTURACRITICA", "ARTISTICA"]; // Añadir más asignaturas si es necesario
         const datosAsignaturas = [];
-
-        cargarCSV();
 
         for (const row of rows) {
             const columns = row.split(',').map(col => col.trim());
