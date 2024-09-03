@@ -111,6 +111,29 @@ async function cargarNombresAsignaturas() {
 
         const pruebaBuscada = "PRUEBA OBJETIVA ROQUISTA 2024-2S";
         let holi = ''; // Constante para almacenar el resultado
+        async function cargarCSV() {
+            try {
+                const response = await fetch('Datos/Pruebas.csv');
+                const csvText = await response.text();
+                const filas = csvText.split('\n').filter(row => row.trim() !== ''); // Elimina filas vacías
+                const encabezados = filas[0].split(',').map(header => header.trim());
+                const indiceNombrePrueba = encabezados.indexOf('NOMBREPRUEBA');
+                const indiceAsignaturas = encabezados.indexOf('ASIGNATURAS');
+
+                for (let i = 1; i < filas.length; i++) {
+                    const fila = filas[i].split(',').map(field => field.trim());
+                    if (fila[indiceNombrePrueba] === pruebaBuscada) {
+                        holi = fila[indiceAsignaturas];
+                        return;
+                    }
+                }
+
+                holi = 'Prueba no encontrada';
+            } catch (error) {
+                console.error("Error al leer el archivo CSV:", error);
+                holi = 'Error al cargar los datos';
+            }
+        }
 
 
 
