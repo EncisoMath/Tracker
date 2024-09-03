@@ -85,42 +85,59 @@ const pruebaBuscada = "PRUEBA OBJETIVA ROQUISTA 2024-2S";
 let holi = ''; // Constante para almacenar el resultado
 let konichiwa = []; // Lista para almacenar los datos separados
 
-        async function cargarCSV() {
-            try {
-                const response = await fetch('Datos/Pruebas.csv');
-                const csvText = await response.text();
-                const filas = csvText.split('\n').filter(row => row.trim() !== ''); // Elimina filas vacías
-                const encabezados = filas[0].split(',').map(header => header.trim());
-                const indiceNombrePrueba = encabezados.indexOf('NOMBREPRUEBA');
-                const indiceAsignaturas = encabezados.indexOf('ASIGNATURAS');
+async function cargarCSV() {
+    try {
+        const response = await fetch('Datos/Pruebas.csv');
+        console.log('Respuesta del fetch:', response);
+        
+        if (!response.ok) {
+            throw new Error('No se pudo obtener el archivo CSV. Estado: ' + response.status);
+        }
 
-                for (let i = 1; i < filas.length; i++) {
-                    const fila = filas[i].split(',').map(field => field.trim());
-                    if (fila[indiceNombrePrueba] === pruebaBuscada) {
-                        holi = fila[indiceAsignaturas];
-                        break;
-                    }
-                }
+        const csvText = await response.text();
+        console.log('Texto del CSV:', csvText);
+        
+        const filas = csvText.split('\n').filter(row => row.trim() !== ''); // Elimina filas vacías
+        console.log('Filas:', filas);
+        
+        const encabezados = filas[0].split(',').map(header => header.trim());
+        console.log('Encabezados:', encabezados);
+        
+        const indiceNombrePrueba = encabezados.indexOf('NOMBREPRUEBA');
+        const indiceAsignaturas = encabezados.indexOf('ASIGNATURAS');
 
-                if (!holi) {
-                    holi = 'Prueba no encontrada';
-                }
+        if (indiceNombrePrueba === -1 || indiceAsignaturas === -1) {
+            throw new Error('No se encontraron las columnas NOMBREPRUEBA o ASIGNATURAS');
+        }
 
-                // Crear la cadena con el valor de holi
-                const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi} - Aciertos</th>`;
-                
-                // Insertar el HTML en el <thead> de la tabla
-                document.querySelector('#miTabla thead').innerHTML = htmlString;
-
-            } catch (error) {
-                console.error("Error al leer el archivo CSV:", error);
-                holi = 'Error al cargar los datos';
-                
-                // Manejar el error insertando el mensaje en el <thead> de la tabla
-                const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi}</th>`;
-                document.querySelector('#miTabla thead').innerHTML = htmlString;
+        for (let i = 1; i < filas.length; i++) {
+            const fila = filas[i].split(',').map(field => field.trim());
+            if (fila[indiceNombrePrueba] === pruebaBuscada) {
+                holi = fila[indiceAsignaturas];
+                break;
             }
         }
+
+        if (!holi) {
+            holi = 'Prueba no encontrada';
+        }
+
+        // Crear la cadena con el valor de holi
+        const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi} - Aciertos</th>`;
+        
+        // Insertar el HTML en el <thead> de la tabla
+        document.querySelector('#miTabla thead').innerHTML = htmlString;
+
+    } catch (error) {
+        console.error("Error al leer el archivo CSV:", error);
+        holi = 'Error al cargar los datos';
+        
+        // Manejar el error insertando el mensaje en el <thead> de la tabla
+        const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi}</th>`;
+        document.querySelector('#miTabla thead').innerHTML = htmlString;
+    }
+}
+
 
 async function cargarNombresAsignaturas() {
     try {
