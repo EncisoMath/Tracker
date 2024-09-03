@@ -134,7 +134,6 @@ async function cargarNombresAsignaturas() {
                 holi = 'Error al cargar los datos';
             }
         }
-        window.onload = cargarCSV;
 
 
 
@@ -184,6 +183,8 @@ async function buscar() {
         let encontrado = false;
         const asignaturas = ['ARITMETICA', 'ESTADISTICA', 'GEOMETRIA', "EDUFISICA", "INGLES", "ETICA", "BIOLOGIA", "FISICA", "QUIMICA", "RELIGION", "FILOSOFIA", "CONSTITUCION", "HISTORIA", "GEOGRAFIA", "INFORMATICA", "LENGUACASTELLANA", "LECTURACRITICA", "ARTISTICA"]; // Añadir más asignaturas si es necesario
         const datosAsignaturas = [];
+
+        cargarCSV();
 
         for (const row of rows) {
             const columns = row.split(',').map(col => col.trim());
@@ -312,3 +313,4 @@ async function buscar() {
 
 // Cargar los años al cargar la página
 document.addEventListener('DOMContentLoaded', cargarAnios);
+
