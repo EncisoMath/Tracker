@@ -115,7 +115,7 @@ async function cargarNombresAsignaturas() {
         let konichiwa = []; // Lista para almacenar los datos separados
 
 
-async function cargarCSV() {
+        async function cargarCSV() {
             try {
                 const response = await fetch('Datos/Pruebas.csv');
                 const csvText = await response.text();
@@ -134,14 +134,8 @@ async function cargarCSV() {
 
                 if (!holi) {
                     holi = 'Prueba no encontrada';
-                } else {
-                    // Crear la lista konichiwa dividiendo holi por el punto y coma
-                    konichiwa = holi.split(';');
                 }
 
-                console.log(konichiwa); // Verifica el contenido de la lista konichiwa
-                
-                // Crear la cadena con el valor de holi
                 const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi} - Aciertos</th>`;
                 document.querySelector('#miTabla thead').innerHTML = htmlString;
 
@@ -149,12 +143,10 @@ async function cargarCSV() {
                 console.error("Error al leer el archivo CSV:", error);
                 holi = 'Error al cargar los datos';
                 
-                // Manejar el error insertando el mensaje en el <thead> de la tabla
                 const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi}</th>`;
                 document.querySelector('#miTabla thead').innerHTML = htmlString;
             }
         }
-
 
 
 
