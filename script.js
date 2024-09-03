@@ -112,10 +112,8 @@ async function cargarNombresAsignaturas() {
 
         const pruebaBuscada = "PRUEBA OBJETIVA ROQUISTA 2024-2S";
         let holi = ''; // Constante para almacenar el resultado
-        let konichiwa = []; // Lista para almacenar los datos separados
 
-
-                async function cargarCSV() {
+        async function cargarCSV() {
             try {
                 const response = await fetch('Datos/Pruebas.csv');
                 const csvText = await response.text();
@@ -131,6 +129,22 @@ async function cargarNombresAsignaturas() {
                         break;
                     }
                 }
+
+                if (!holi) {
+                    holi = 'Prueba no encontrada';
+                }
+
+                const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi} - Aciertos</th>`;
+                document.querySelector('#miTabla thead').innerHTML = htmlString;
+
+            } catch (error) {
+                console.error("Error al leer el archivo CSV:", error);
+                holi = 'Error al cargar los datos';
+                
+                const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi}</th>`;
+                document.querySelector('#miTabla thead').innerHTML = htmlString;
+            }
+        }
 
                 if (!holi) {
                     holi = 'Prueba no encontrada';
