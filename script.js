@@ -214,7 +214,7 @@ async function buscar() {
                                 <tr>
                                     <th style="padding: 8px; text-align: center; font-size: 25px">Asignatura</th>
                                     <th style="padding: 8px; text-align: center; font-size: 25px">Aciertos</th>
-                                    <th style="padding: 8px; text-align: center; font-size: 25px">Nota ${imgExamen}</th>
+                                    <th style="padding: 8px; text-align: center; font-size: 25px">Nota ${pruebaBuscada}</th>
                                 </tr>
                             </thead>
                             <tbody>
