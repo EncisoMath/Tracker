@@ -193,7 +193,7 @@ async function buscar() {
                 const GRADO = columns[columnMap['GRADO']];
                 const RANKING = columns[columnMap['RANKING']];
 
-                if (ANIO === anio && PRUEBA === prueba && ID === codigo) {
+                if (ID === codigo) {
                     asignaturas.forEach(asignatura => {
                         const nombreAsignatura = nombreAsignaturaMap.get(asignatura) || asignatura;
                         datosAsignaturas.push({
