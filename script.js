@@ -70,7 +70,6 @@ async function cargarPruebas() {
     } catch (error) {
         console.error('Error al cargar las pruebas:', error);
     }
-cargarCSV();
 }
 
 // Función para mostrar el campo de código cuando se selecciona una prueba
@@ -107,63 +106,6 @@ async function cargarNombresAsignaturas() {
         return new Map();
     }
 }
-
-
-
-        const pruebaBuscada = "PRUEBA OBJETIVA ROQUISTA 2024-2S";
-        let holi = ''; // Constante para almacenar el resultado
-
-        async function cargarCSV() {
-            try {
-                const response = await fetch('Datos/Pruebas.csv');
-                const csvText = await response.text();
-                const filas = csvText.split('\n').filter(row => row.trim() !== ''); // Elimina filas vacías
-                const encabezados = filas[0].split(',').map(header => header.trim());
-                const indiceNombrePrueba = encabezados.indexOf('NOMBREPRUEBA');
-                const indiceAsignaturas = encabezados.indexOf('ASIGNATURAS');
-
-                for (let i = 1; i < filas.length; i++) {
-                    const fila = filas[i].split(',').map(field => field.trim());
-                    if (fila[indiceNombrePrueba] === pruebaBuscada) {
-                        holi = fila[indiceAsignaturas];
-                        break;
-                    }
-                }
-
-                if (!holi) {
-                    holi = 'Prueba no encontrada';
-                }
-
-                const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi} - Aciertos</th>`;
-                document.querySelector('#miTabla thead').innerHTML = htmlString;
-
-            } catch (error) {
-                console.error("Error al leer el archivo CSV:", error);
-                holi = 'Error al cargar los datos';
-                
-                const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi}</th>`;
-                document.querySelector('#miTabla thead').innerHTML = htmlString;
-            }
-        }
-
-                if (!holi) {
-                    holi = 'Prueba no encontrada';
-                }
-
-                const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi} - Aciertos</th>`;
-                document.querySelector('#miTabla thead').innerHTML = htmlString;
-
-            } catch (error) {
-                console.error("Error al leer el archivo CSV:", error);
-                holi = 'Error al cargar los datos';
-                
-                const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi}</th>`;
-                document.querySelector('#miTabla thead').innerHTML = htmlString;
-            }
-        }
-
-
-
 
 
 
