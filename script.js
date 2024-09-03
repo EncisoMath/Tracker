@@ -80,7 +80,7 @@ function mostrarCampoCodigo() {
     }
 }
 
-// Función para cargar los nombres de asignaturas desde el CSV
+
 async function cargarNombresAsignaturas() {
     try {
         const response = await fetch('Datos/NombreAsignatura.csv');
@@ -107,6 +107,7 @@ async function cargarNombresAsignaturas() {
     }
 }
 
+
 // Función para buscar y mostrar los resultados del alumno
 async function buscar() {
     const codigo = document.getElementById('codigo').value.trim();
@@ -120,33 +121,16 @@ async function buscar() {
     }
 
     try {
-        // Obtener asignaturas desde el archivo de pruebas
-        const responsePruebas = await fetch('Datos/Pruebas.csv');
-        if (!responsePruebas.ok) {
-            throw new Error(`Error al cargar Datos/Pruebas.csv: ${responsePruebas.statusText}`);
-        }
-        const dataPruebas = await responsePruebas.text();
-        const rowsPruebas = dataPruebas.split('\n').slice(1); // Saltar la cabecera
-
-        // Crear un mapa de NOMBREPRUEBA a ASIGNATURAS
-        let asignaturas = [];
-        rowsPruebas.forEach(row => {
-            const [NOMBREPRUEBA, ASIGNATURAS] = row.split(',').map(col => col.trim());
-            if (NOMBREPRUEBA === prueba) {
-                asignaturas = ASIGNATURAS.split(';').map(asignatura => asignatura.trim());
-            }
-        });
-
         const nombreAsignaturaMap = await cargarNombresAsignaturas();
-        const responseDatos = await fetch('Datos/datos.csv');
-        if (!responseDatos.ok) {
-            throw new Error(`Error al cargar el CSV: ${responseDatos.statusText}`);
+        const response = await fetch('Datos/datos.csv');
+        if (!response.ok) {
+            throw new Error(`Error al cargar el CSV: ${response.statusText}`);
         }
-        const dataDatos = await responseDatos.text();
-        const rowsDatos = dataDatos.split('\n');
+        const data = await response.text();
+        const rows = data.split('\n');
 
         // Obtener los nombres de las columnas
-        const header = rowsDatos.shift().split(',').map(col => col.trim()); // Obtener la primera fila como encabezado
+        const header = rows.shift().split(',').map(col => col.trim()); // Obtener la primera fila como encabezado
 
         // Crear un mapa de nombres de columna a índices
         const columnMap = header.reduce((map, column, index) => {
@@ -155,9 +139,10 @@ async function buscar() {
         }, {});
 
         let encontrado = false;
+        const asignaturas = ['ARITMETICA', 'ESTADISTICA', 'GEOMETRIA', "EDUFISICA", "INGLES", "ETICA", "BIOLOGIA", "FISICA", "QUIMICA", "RELIGION", "FILOSOFIA", "CONSTITUCION", "HISTORIA", "GEOGRAFIA", "INFORMATICA", "LENGUACASTELLANA", "LECTURACRITICA", "ARTISTICA"]; // Añadir más asignaturas si es necesario
         const datosAsignaturas = [];
 
-        for (const row of rowsDatos) {
+        for (const row of rows) {
             const columns = row.split(',').map(col => col.trim());
             if (columns.length) {
                 const ANIO = columns[columnMap['ANIO']];
@@ -182,7 +167,7 @@ async function buscar() {
 
                     // Construir la tabla con las notas
                     const tablaNotas = `
-                        <table border="1" style="border-collapse: collapse; width: 100%; font-size: 25px;">
+                        <table border="1" style="border-collapse: collapse; width: 100%; font-size: 25px;"> <!-- Establece tamaño de letra general -->
                             <thead>
                                 <tr>
                                     <th style="padding: 8px; text-align: center; font-size: 25px">Asignatura</th>
@@ -196,7 +181,7 @@ async function buscar() {
                                         <td style="padding: 8px; text-align: center; font-size: 18px">
                                             <div style="display: flex; flex-direction: column; align-items: center;">
                                                 ${(() => {
-                                                    const Icon = `Iconos/${asignatura.icono}.png`;
+                                                    const Icon = `Iconos/${asignatura.icono}.png`;                                        
                                                     return `<img 
                                                         src="${Icon}"
                                                         style="width: 50px; height: 50px;"
@@ -211,13 +196,62 @@ async function buscar() {
                                             <span style="font-size: 15px;"> / </span> 
                                             <span style="font-size: 15px;">${asignatura.cantidadPreguntas}</span>
                                         </td>
-                                        <td style="padding: 8px; text-align: center;">${asignatura.resultado}</td>
+                                        <td class="numero-font" style="padding: 8px;">${asignatura.resultado}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
                         </table>
                     `;
-                    resultado.innerHTML = tablaNotas;
+
+                    // Aquí se agrega el mensaje y la imagen del examen después de la tabla de notas
+                    const idAlumno = codigo; // El ID del alumno es el código ingresado
+                    const imgExtensions = ['jpg', 'png']; // Extensiones de imagen permitidas
+                    let imgExamen = '';
+
+                    // Buscar la imagen del examen según el ID
+                    for (const ext of imgExtensions) {
+                        imgExamen = `Soportes/${PRUEBA}/${idAlumno}.${ext}`;
+                        try {
+                            const response = await fetch(imgExamen);
+                            if (response.ok) {
+                                break; // Si encuentra la imagen, se sale del bucle
+                            }
+                        } catch (error) {
+                            console.error(`Imagen no encontrada: ${imgExamen}`);
+                        }
+                    }
+
+                    // Añadir el mensaje y la imagen al HTML
+                    resultado.innerHTML = `
+                        <h1>Resultados</h1>
+                        <div class="resultados-container">
+                            <!-- Bloque izquierdo -->
+                            <div class="resultado-left">
+                                <div class="resultado-item">
+                                    <span class="bold-font" style="color: orange;font-size: 22px;">Alumno: </span>
+                                    <span>${NOMBRE}</span>
+                                </div>
+                                <div class="resultado-item">
+                                    <span class="bold-font" style="color: orange;font-size: 22px;">Grado y Sede: </span>
+                                    <span>${GRADO} ${SEDE}</span>
+                                </div>
+                            </div>
+                    
+                            <!-- Bloque derecho -->
+                            <div class="resultado-right">
+                                <div class="bold-font" style="color: orange; font-size: 35px; margin-top: 0;">Ranking</div>
+                                <div class="bold-font" style="font-size: 32px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                                    <img src="Iconos/RANKING.png" style="width: 35px; height: 35px;">
+                                    <span>${RANKING}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        ${tablaNotas}
+                        <h3>Aquí está tu examen:</h3>
+                        <img src="${imgExamen}";" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
+                    `;
+
                     encontrado = true;
                     break;
                 }
@@ -225,19 +259,13 @@ async function buscar() {
         }
 
         if (!encontrado) {
-            resultado.innerHTML = 'No se encontraron resultados.';
+            resultado.innerHTML = 'No se encontraron resultados para el código ingresado.';
         }
 
     } catch (error) {
-        console.error('Error al buscar los datos:', error);
-        resultado.innerHTML = 'Error al buscar los datos.';
+        console.error('Error al buscar resultados:', error);
     }
 }
 
-// Inicializar eventos
-document.getElementById('ano').addEventListener('change', cargarPruebas);
-document.getElementById('prueba').addEventListener('change', mostrarCampoCodigo);
-document.getElementById('buscar').addEventListener('click', buscar);
-
-// Cargar los años al iniciar la página
-cargarAnios();
+// Cargar los años al cargar la página
+document.addEventListener('DOMContentLoaded', cargarAnios);
