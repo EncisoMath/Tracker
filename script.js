@@ -81,11 +81,11 @@ function mostrarCampoCodigo() {
     }
 }
 
-const pruebaBuscada = "PRUEBA OBJETIVA ROQUISTA 2024-2S";
 let holi = 'dededede'; // Constante para almacenar el resultado
 let konichiwa = []; // Lista para almacenar los datos separados
 
 async function cargarCSV() {
+        const pruebaBuscada = document.getElementById('prueba').value;
     try {
         // Carga el archivo CSV
         const response = await fetch('Datos/Pruebas.csv');
