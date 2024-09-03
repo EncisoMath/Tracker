@@ -104,15 +104,12 @@ let konichiwa = []; // Lista para almacenar los datos separados
 
                 if (!holi) {
                     holi = 'Prueba no encontrada';
-                } else {
-                    // Crear la lista konichiwa dividiendo holi por el punto y coma
-                    konichiwa = holi.split(';');
                 }
 
-                console.log(konichiwa); // Verifica el contenido de la lista konichiwa
-                
                 // Crear la cadena con el valor de holi
                 const htmlString = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi} - Aciertos</th>`;
+                
+                // Insertar el HTML en el <thead> de la tabla
                 document.querySelector('#miTabla thead').innerHTML = htmlString;
 
             } catch (error) {
