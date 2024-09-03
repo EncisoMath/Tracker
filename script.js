@@ -81,12 +81,11 @@ function mostrarCampoCodigo() {
     }
 }
 
-
-
-async function cargarCSV() {
 const pruebaBuscada = "PRUEBA OBJETIVA ROQUISTA 2024-2S";
 let holi = 'dededede'; // Constante para almacenar el resultado
 let konichiwa = []; // Lista para almacenar los datos separados
+
+async function cargarCSV() {
     try {
         // Carga el archivo CSV
         const response = await fetch('Datos/Pruebas.csv');
@@ -100,14 +99,11 @@ let konichiwa = []; // Lista para almacenar los datos separados
         const indiceNombrePrueba = encabezados.indexOf('NOMBREPRUEBA');
         const indiceAsignaturas = encabezados.indexOf('ASIGNATURAS');
 
-        // Inicializa la variable 'holi' para almacenar el resultado
-        let holi = '';
-
         // Recorre las filas para encontrar la coincidencia con 'pruebaBuscada'
         for (let i = 1; i < filas.length; i++) {
             const fila = filas[i].split(',').map(field => field.trim());
             if (fila[indiceNombrePrueba] === pruebaBuscada) {
-                holi = fila[indiceAsignaturas]; // Guarda el resultado en 'holi'
+                holi = fila[indiceAsignaturas]; // Actualiza la variable global 'holi'
                 break; // Termina el bucle cuando se encuentra el resultado
             }
         }
@@ -117,7 +113,13 @@ let konichiwa = []; // Lista para almacenar los datos separados
             holi = 'Prueba no encontrada';
         }
 
-        console.log('Resultado en holi:', holi); // Muestra el resultado en la consola
+        // Inserta el valor de 'holi' en el HTML
+        const theadElement = document.querySelector('#miTabla thead');
+        if (theadElement) {
+            theadElement.innerHTML = `<th style="padding: 8px; text-align: center; font-size: 25px">${holi}</th>`;
+        } else {
+            console.error('Elemento #miTabla thead no encontrado');
+        }
 
     } catch (error) {
         console.error("Error al leer el archivo CSV:", error);
