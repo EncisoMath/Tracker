@@ -81,11 +81,11 @@ function mostrarCampoCodigo() {
     }
 }
 
-let holi = ''; // Constante para almacenar el resultado
 let kakashi = ''; // Constante para almacenar el resultado
 let asignaturas = []; // Lista para almacenar los datos separados
 
 async function cargarCSV() {
+    let holi = ''; // Constante para almacenar el resultado
     const pruebaBuscada = document.getElementById('prueba').value;
     try {
         // Carga el archivo CSV
@@ -216,7 +216,7 @@ async function buscar() {
                                 <tr>
                                     <th style="padding: 8px; text-align: center; font-size: 25px">Asignatura</th>
                                     <th style="padding: 8px; text-align: center; font-size: 25px">Aciertos</th>
-                                    <th style="padding: 8px; text-align: center; font-size: 25px">Nota ${holi}</th>
+                                    <th style="padding: 8px; text-align: center; font-size: 25px">Nota</th>
                                 </tr>
                             </thead>
                             <tbody>
