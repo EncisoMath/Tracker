@@ -84,7 +84,6 @@ function mostrarCampoCodigo() {
 let kakashi = ''; // Constante para almacenar el resultado
 let naruto = ''; // Constante para almacenar el resultado
 let asignaturas = []; // Lista para almacenar los datos separados
-const QPreguntas = [10, 20, 30, 40, 50];
 
 async function cargarCSV() {
     let holi = ''; // Constante para almacenar el resultado
@@ -226,8 +225,8 @@ const tablaNotas = `
         </thead>
         <tbody>
             ${datosAsignaturas.map((asignatura, index) => {
-                // Seleccionar el valor de QPreguntas según el índice de la asignatura
-                const preguntas = QPreguntas[index] || 'N/A'; // Usa 'N/A' si no hay suficientes valores en QPreguntas
+                // Seleccionar el valor de naruto según el índice de la asignatura
+                const preguntas = naruto[index] || 'N/A'; // Usa 'N/A' si no hay suficientes valores en naruto
                 
                 return `
                     <tr>
