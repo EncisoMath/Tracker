@@ -82,11 +82,12 @@ function mostrarCampoCodigo() {
 }
 
 let kakashi = ''; // Constante para almacenar el resultado
-const naruto = []; // Constante para almacenar el resultado
+let naruto = []; // Constante para almacenar el resultado
 let asignaturas = []; // Lista para almacenar los datos separados
 
 async function cargarCSV() {
     let holi = ''; // Constante para almacenar el resultado
+    let sakura = ''; // Constante para almacenar el resultado
     const pruebaBuscada = document.getElementById('prueba').value;
     try {
         // Carga el archivo CSV
@@ -108,10 +109,11 @@ async function cargarCSV() {
             const fila = filas[i].split(',').map(field => field.trim());
             if (fila[indiceNombrePrueba] === pruebaBuscada) {
                 holi = fila[indiceAsignaturas]; // Actualiza la variable global 'holi'
+                sakura = fila[indicePreguntas]; // Actualiza la variable global 'holi'
                 asignaturas = holi.split(';').map(item => item.trim()); // Divide el valor de 'holi' en una lista usando el separador ';'
+                naruto = sakura.split(';').map(item => item.trim()); // Divide el valor de 'holi' en una lista usando el separador ';'
                 
                 kakashi = fila[indiceArchivo]; // Actualiza la variable global 'kakashi'
-                naruto = fila[indicePreguntas]; // Actualiza la variable global 'kakashi'
                 break; // Termina el bucle cuando se encuentra el resultado
             }
         }
