@@ -82,7 +82,7 @@ function mostrarCampoCodigo() {
 }
 
 let kakashi = ''; // Constante para almacenar el resultado
-let naruto = ''; // Constante para almacenar el resultado
+const naruto = []; // Constante para almacenar el resultado
 let asignaturas = []; // Lista para almacenar los datos separados
 
 async function cargarCSV() {
