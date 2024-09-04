@@ -82,6 +82,7 @@ function mostrarCampoCodigo() {
 }
 
 let kakashi = ''; // Constante para almacenar el resultado
+let naruto = ''; // Constante para almacenar el resultado
 let asignaturas = []; // Lista para almacenar los datos separados
 const QPreguntas = [10, 20, 30, 40, 50];
 
@@ -101,6 +102,7 @@ async function cargarCSV() {
         const indiceNombrePrueba = encabezados.indexOf('NOMBREPRUEBA');
         const indiceAsignaturas = encabezados.indexOf('ASIGNATURAS');
         const indiceArchivo = encabezados.indexOf('ARCHIVO'); // Índice para la columna ARCHIVO
+        const indicePreguntas = encabezados.indexOf('PREGUNTAS'); // Índice para la columna ARCHIVO
 
         // Recorre las filas para encontrar la coincidencia con 'pruebaBuscada'
         for (let i = 1; i < filas.length; i++) {
@@ -110,6 +112,7 @@ async function cargarCSV() {
                 asignaturas = holi.split(';').map(item => item.trim()); // Divide el valor de 'holi' en una lista usando el separador ';'
                 
                 kakashi = fila[indiceArchivo]; // Actualiza la variable global 'kakashi'
+                naruto = fila[indicePreguntas]; // Actualiza la variable global 'kakashi'
                 break; // Termina el bucle cuando se encuentra el resultado
             }
         }
@@ -118,6 +121,7 @@ async function cargarCSV() {
         console.log('holi:', holi);
         console.log('asignaturas:', asignaturas);
         console.log('kakashi:', kakashi);
+        console.log('naruto:', naruto);
         
     } catch (error) {
         console.error("Error al leer el archivo CSV:", error);
