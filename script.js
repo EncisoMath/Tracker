@@ -225,9 +225,6 @@ const tablaNotas = `
                 // Seleccionar el valor de QPreguntas según el índice de la asignatura
                 const preguntas = QPreguntas[index] || 'N/A'; // Usa 'N/A' si no hay suficientes valores en QPreguntas
                 
-                // Calcular el resultado basado en la cantidad de preguntas
-                const resultado = asignatura.respuestasCorrectas / preguntas;
-                
                 return `
                     <tr>
                         <td style="padding: 8px; text-align: center; font-size: 18px">
@@ -248,7 +245,7 @@ const tablaNotas = `
                             <span style="font-size: 15px;"> / </span> 
                             <span style="font-size: 15px;">${preguntas}</span>
                         </td>
-                        <td class="numero-font" style="padding: 8px;">${resultado.toFixed(2)}</td>
+                        <td class="numero-font" style="padding: 8px;">${asignatura.resultado}</td>
                     </tr>
                 `;
             }).join('')}
