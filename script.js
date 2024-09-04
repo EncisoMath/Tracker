@@ -83,6 +83,7 @@ function mostrarCampoCodigo() {
 
 let kakashi = ''; // Constante para almacenar el resultado
 let asignaturas = []; // Lista para almacenar los datos separados
+const QPreguntas = [10, 20, 30, 40, 50];
 
 async function cargarCSV() {
     let holi = ''; // Constante para almacenar el resultado
@@ -210,42 +211,51 @@ async function buscar() {
                     });
 
                     // Construir la tabla con las notas
-                    const tablaNotas = `
-                        <table border="1" style="border-collapse: collapse; width: 100%; font-size: 25px;"> <!-- Establece tamaño de letra general -->
-                            <thead>
-                                <tr>
-                                    <th style="padding: 8px; text-align: center; font-size: 25px">Asignatura</th>
-                                    <th style="padding: 8px; text-align: center; font-size: 25px">Aciertos</th>
-                                    <th style="padding: 8px; text-align: center; font-size: 25px">Nota</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${datosAsignaturas.map(asignatura => `
-                                    <tr>
-                                        <td style="padding: 8px; text-align: center; font-size: 18px">
-                                            <div style="display: flex; flex-direction: column; align-items: center;">
-                                                ${(() => {
-                                                    const Icon = `Iconos/${asignatura.icono}.png`;                                        
-                                                    return `<img 
-                                                        src="${Icon}"
-                                                        style="width: 50px; height: 50px;"
-                                                        onerror="this.src='https://via.placeholder.com/60';"
-                                                        alt="${asignatura.nombre}">`;
-                                                })()}
-                                                <span>${asignatura.nombre}</span>
-                                            </div>
-                                        </td>
-                                        <td class="numero-font" style="padding: 8px;">
-                                            <span>${asignatura.respuestasCorrectas}</span>
-                                            <span style="font-size: 15px;"> / </span> 
-                                            <span style="font-size: 15px;">${asignatura.cantidadPreguntas}</span>
-                                        </td>
-                                        <td class="numero-font" style="padding: 8px;">${asignatura.resultado}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    `;
+const tablaNotas = `
+    <table border="1" style="border-collapse: collapse; width: 100%; font-size: 25px;"> <!-- Establece tamaño de letra general -->
+        <thead>
+            <tr>
+                <th style="padding: 8px; text-align: center; font-size: 25px">Asignatura</th>
+                <th style="padding: 8px; text-align: center; font-size: 25px">Aciertos</th>
+                <th style="padding: 8px; text-align: center; font-size: 25px">Nota</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${datosAsignaturas.map((asignatura, index) => {
+                // Seleccionar el valor de QPreguntas según el índice de la asignatura
+                const preguntas = QPreguntas[index] || 'N/A'; // Usa 'N/A' si no hay suficientes valores en QPreguntas
+                
+                // Calcular el resultado basado en la cantidad de preguntas
+                const resultado = asignatura.respuestasCorrectas / preguntas;
+                
+                return `
+                    <tr>
+                        <td style="padding: 8px; text-align: center; font-size: 18px">
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                                ${(() => {
+                                    const Icon = `Iconos/${asignatura.icono}.png`;
+                                    return `<img 
+                                        src="${Icon}"
+                                        style="width: 50px; height: 50px;"
+                                        onerror="this.src='https://via.placeholder.com/60';"
+                                        alt="${asignatura.nombre}">`;
+                                })()}
+                                <span>${asignatura.nombre}</span>
+                            </div>
+                        </td>
+                        <td class="numero-font" style="padding: 8px;">
+                            <span>${asignatura.respuestasCorrectas}</span>
+                            <span style="font-size: 15px;"> / </span> 
+                            <span style="font-size: 15px;">${preguntas}</span>
+                        </td>
+                        <td class="numero-font" style="padding: 8px;">${resultado.toFixed(2)}</td>
+                    </tr>
+                `;
+            }).join('')}
+        </tbody>
+    </table>
+`;
+
 
                     // Aquí se agrega el mensaje y la imagen del examen después de la tabla de notas
                     const idAlumno = codigo; // El ID del alumno es el código ingresado
