@@ -262,18 +262,31 @@ const tablaNotas = `
                     // Aquí se agrega el mensaje y la imagen del examen después de la tabla de notas
                     const idAlumno = codigo; // El ID del alumno es el código ingresado
                     const imgExtensions = ['jpg', 'png']; // Extensiones de imagen permitidas
-                    let imgExamen = '';
+                    let imgExamen1 = '';
+                    let imgExamen2 = '';
 
                     // Buscar la imagen del examen según el ID
                     for (const ext of imgExtensions) {
-                        imgExamen = `Soportes/${prueba}/${idAlumno}.${ext}`;
+                        imgExamen1 = `Soportes/${prueba}/${idAlumno}.${ext}`;
                         try {
-                            const response = await fetch(imgExamen);
+                            const response = await fetch(imgExamen1);
                             if (response.ok) {
                                 break; // Si encuentra la imagen, se sale del bucle
                             }
                         } catch (error) {
-                            console.error(`Imagen no encontrada: ${imgExamen}`);
+                            console.error(`Imagen no encontrada: ${imgExamen1}`);
+                        }
+                    };
+
+                    for (const ext of imgExtensions) {
+                        imgExamen2 = `Soportes/${prueba}/${idAlumno}.${ext}`;
+                        try {
+                            const response = await fetch(imgExamen2);
+                            if (response.ok) {
+                                break; // Si encuentra la imagen, se sale del bucle
+                            }
+                        } catch (error) {
+                            console.error(`Imagen no encontrada: ${imgExamen2}`);
                         }
                     }
 
@@ -305,7 +318,8 @@ const tablaNotas = `
                         <hr>
                         ${tablaNotas}
                         <h3>Aquí está tu examen:</h3>
-                        <img src="${imgExamen}";" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
+                        <img src="${imgExamen1}";" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
+                        <img src="${imgExamen2}";" style="width: 100%; height: auto; max-width: 1000px; margin: 0 auto; display: block;">
                     `;
 
                     encontrado = true;
