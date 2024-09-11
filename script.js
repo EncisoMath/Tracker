@@ -267,7 +267,7 @@ const tablaNotas = `
 
                     // Buscar la imagen del examen según el ID
                     for (const ext of imgExtensions) {
-                        imgExamen1 = `Soportes/${prueba}/${idAlumno}.${ext}`;
+                        imgExamen1 = `Soportes/${prueba}/${idAlumno}_p1.${ext}`;
                         try {
                             const response = await fetch(imgExamen1);
                             if (response.ok) {
@@ -279,7 +279,7 @@ const tablaNotas = `
                     };
 
                     for (const ext of imgExtensions) {
-                        imgExamen2 = `Soportes/${prueba}/${idAlumno}.${ext}`;
+                        imgExamen2 = `Soportes/${prueba}/${idAlumno}_p2.${ext}`;
                         try {
                             const response = await fetch(imgExamen2);
                             if (response.ok) {
