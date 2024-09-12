@@ -318,10 +318,11 @@ const tablaNotas = `
                         <hr>
                         ${tablaNotas}
                         <h3>Aquí está tu examen:</h3>
-<div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
-    <img src="${imgExamen1}" style="width: 100%; height: auto; object-fit: cover; object-position: center top; max-width: 1000px;">
-    <img src="${imgExamen2}" style="width: 100%; height: 50%; max-width: 1000px; object-fit: cover; display: block;">
-</div>                    `;
+<div style="display: flex; justify-content: center; align-items: center; gap: 10px; overflow: hidden; max-width: 1000px; margin: 0 auto;">
+    <img src="${imgExamen1}" style="width: 100%; height: auto; object-fit: cover; clip-path: inset(20% 0 20% 0);">
+    <img src="${imgExamen2}" style="width: 100%; height: auto; object-fit: cover; clip-path: inset(20% 0 20% 0);">
+</div>
+                    `;
 
                     encontrado = true;
                     break;
