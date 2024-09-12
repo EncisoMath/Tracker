@@ -318,7 +318,7 @@ const tablaNotas = `
                         <hr>
                         ${tablaNotas}
                         <h3>Aquí está tu examen:</h3>
-                        <div style="width: 100%; height: 80%; max-width: 1000px; margin: 0 auto; overflow: hidden; display: block;">
+                        <div style="width: 100%; height: 50%; max-width: 1000px; margin: 0 auto; overflow: hidden; display: block;">
                             <img src="${imgExamen1}" style="width: 100%; height: auto; object-fit: cover; object-position: center top;">
                         </div>
                         <img src="${imgExamen2}";" style="width: 100%; height: 50%; max-width: 1000px; margin: 0 auto; display: block;">
