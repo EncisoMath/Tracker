@@ -318,14 +318,25 @@ const tablaNotas = `
                         <hr>
                         ${tablaNotas}
                         <h3>Aquí está tu examen:</h3>
-                        <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
-                            <div style="width: 100%; height: auto; max-width: 500px; overflow: hidden;">
-                                <img src="${imgExamen1}" style="width: 100%; height: 140%; object-fit: cover; object-position: center 30%;">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <!-- Contenedor de las imágenes -->
+                            <div style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <div style="width: 100%; max-width: 500px; overflow: hidden;">
+                                    <img src="${imgExamen1}" style="width: 100%; height: auto; object-fit: cover; object-position: center;">
+                                </div>
+                                <div style="width: 100%; max-width: 500px; overflow: hidden;">
+                                    <img src="${imgExamen2}" style="width: 100%; height: auto; object-fit: cover; object-position: center;">
+                                </div>
                             </div>
-                            <div style="width: 100%; height: auto; max-width: 500px; overflow: hidden;">
-                                <img src="${imgExamen2}" style="width: 100%; height: 140%; object-fit: cover; object-position: center 30%;">
+                            
+                            <!-- Descripción de colores -->
+                            <div style="text-align: center; width: 100%; max-width: 1000px;">
+                                <p><span style="color: green;">&#9679;</span> Correcta</p>
+                                <p><span style="color: red;">&#9679;</span> Incorrecta</p>
+                                <p><span style="color: yellow;">&#9679;</span> Respuesta Correcta</p>
                             </div>
                         </div>
+
                     `;
 
                     encontrado = true;
