@@ -331,9 +331,7 @@ const tablaNotas = `
                             
                             <!-- Descripción de colores -->
                             <div style="text-align: center; width: 100%; max-width: 1000px;">
-                                <p><span style="color: green;">&#9679;</span> Correcta</p>
-                                <p><span style="color: red;">&#9679;</span> Incorrecta</p>
-                                <p><span style="color: yellow;">&#9679;</span> Respuesta Correcta</p>
+                                <p><span style="color: green;">&#9679;</span> Correcta | <span style="color: yellow;">&#9679;</span> Respuesta Correcta | <span style="color: red;">&#9679;</span> Incorrecta</p>
                             </div>
                         </div>
 
