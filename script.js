@@ -333,24 +333,47 @@ const tablaNotas = `
                                 </div>
                             </div>
                     
-                            <!-- Bloque derecho -->
-                        <div class="resultado-right" style="text-align: center;">
-                            <!-- Título "Ranking" centrado -->
-                            <div class="bold-font" style="color: orange; font-size: 35px; margin-top: 0;">Ranking</div>
-                            
-                            <!-- División de dos columnas para RANKING_C y RANKING_G -->
-                            <div class="bold-font" style="font-size: 32px; display: flex; justify-content: space-between; margin-top: 20px;">
-                                <!-- Columna izquierda con RANKING_C -->
-                                <div style="flex: 1; text-align: center; border-right: 2px solid #ccc; padding-right: 10px;">
-                                    <span>${RANKING_C}</span>
-                                </div>
-                                
-                                <!-- Columna derecha con RANKING_G -->
-                                <div style="flex: 1; text-align: center; padding-left: 10px;">
-                                    <span>${RANKING_G}</span>
-                                </div>
-                            </div>
-                        </div>
+
+
+
+<div class="resultado-right" style="text-align: center;">
+    <!-- Título "Ranking" centrado -->
+    <div class="bold-font" style="color: orange; font-size: 35px; margin-top: 0;">Ranking</div>
+    
+    <!-- División de dos columnas para RANKING_C y RANKING_G -->
+    <div class="bold-font" style="font-size: 32px; display: flex; justify-content: space-between; margin-top: 20px;">
+        
+        <!-- Columna izquierda con RANKING_C -->
+        <div style="flex: 1; text-align: center; border-right: 2px solid #ccc; padding-right: 10px;">
+            <!-- Mostrar el valor de RANKING_C y el ícono correspondiente -->
+            <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <span>${RANKING_C}</span>
+                <img src="Iconos/R${RANKING_C >= 1 && RANKING_C <= 3 ? RANKING_C : 'RANKING'}.png" style="width: 35px; height: 35px;">
+            </div>
+            <!-- Texto "Nivel Curso" debajo del valor -->
+            <div style="font-size: 18px; margin-top: 10px;">Nivel Curso</div>
+        </div>
+        
+        <!-- Columna derecha con RANKING_G -->
+        <div style="flex: 1; text-align: center; padding-left: 10px;">
+            <!-- Mostrar el valor de RANKING_G y el ícono correspondiente -->
+            <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <span>${RANKING_G}</span>
+                <img src="Iconos/R${RANKING_G >= 1 && RANKING_G <= 3 ? RANKING_G : 'RANKING'}.png" style="width: 35px; height: 35px;">
+            </div>
+            <!-- Texto "Nivel Grado" debajo del valor -->
+            <div style="font-size: 18px; margin-top: 10px;">Nivel Grado</div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+
+
+
                         </div>
                         <hr>
                         ${tablaNotas}
