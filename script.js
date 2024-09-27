@@ -320,12 +320,14 @@ const tablaNotas = `
                     // Añadir el mensaje y la imagen al HTML
                     resultado.innerHTML = `
                         <h1>Resultados</h1>
-                        <!-- Contenedor principal -->
-<div class="resultados-container" style="display: flex; justify-content: space-between; align-items: center; height: 100%;">
 
-    <!-- Bloque izquierdo (Información del alumno) -->
-    <div class="resultado-left" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-        <div class="resultado-item">
+                        
+<!-- Contenedor principal -->
+<div class="resultados-container" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+
+    <!-- Bloque superior (Información del alumno) -->
+    <div class="resultado-left" style="width: 100%; text-align: center; margin-bottom: 20px;">
+        <div class="resultado-item" style="margin-bottom: 10px;">
             <span class="bold-font" style="color: orange; font-size: 22px;">Alumno: </span>
             <span>${NOMBRE}</span>
         </div>
@@ -335,8 +337,36 @@ const tablaNotas = `
         </div>
     </div>
 
-    <!-- Bloque derecho (Ranking) -->
-    <div class="resultado-right" style="flex: 1; text-align: center;">
+    <!-- Bloque inferior (Ranking) -->
+    <div class="resultado-right" style="width: 100%; text-align: center;">
+        <!-- Título "Ranking" centrado -->
+        <div class="bold-font" style="color: orange; font-size: 35px; margin-top: 0;">Ranking</div>
+
+        <!-- División de dos columnas para RANKING_C y RANKING_G -->
+        <div class="bold-font" style="font-size: 32px; display: flex; justify-content: space-around; margin-top: 20px;">
+
+            <!-- Columna izquierda con RANKING_C -->
+            <div style="text-align: center;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <span>${RANKING_C}</span>
+                    <img src="Iconos/${RANKING_C >= 1 && RANKING_C <= 3 ? `R${RANKING_C}` : 'RANKING'}.png" style="width: 35px; height: 35px;">
+                </div>
+                <div style="font-size: 18px; margin-top: 10px;">Nivel Curso</div>
+            </div>
+
+            <!-- Columna derecha con RANKING_G -->
+            <div style="text-align: center;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <span>${RANKING_G}</span>
+                    <img src="Iconos/${RANKING_G >= 1 && RANKING_G <= 3 ? `R${RANKING_G}` : 'RANKING'}.png" style="width: 35px; height: 35px;">
+                </div>
+                <div style="font-size: 18px; margin-top: 10px;">Nivel Grado</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+class="resultado-right" style="flex: 1; text-align: center;">
         <!-- Título "Ranking" centrado -->
         <div class="bold-font" style="color: orange; font-size: 35px; margin-top: 0;">Ranking</div>
 
