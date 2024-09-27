@@ -348,7 +348,7 @@ const tablaNotas = `
             <!-- Mostrar el valor de RANKING_C y el ícono correspondiente -->
             <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
                 <span>${RANKING_C}</span>
-                <img src="Iconos/${getRankingImage(RANKING_C)}" style="width: 35px; height: 35px;">
+                <img src="Iconos/${RANKING_C >= 1 && RANKING_C <= 3 ? RANKING_C : 'RANKING'}.png" style="width: 35px; height: 35px;">
             </div>
             <!-- Texto "Nivel Curso" debajo del valor -->
             <div style="font-size: 18px; margin-top: 10px;">Nivel Curso</div>
@@ -359,7 +359,7 @@ const tablaNotas = `
             <!-- Mostrar el valor de RANKING_G y el ícono correspondiente -->
             <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
                 <span>${RANKING_G}</span>
-                <img src="Iconos/${getRankingImage(RANKING_G)}" style="width: 35px; height: 35px;">
+                <img src="Iconos/${RANKING_G >= 1 && RANKING_G <= 3 ? RANKING_G : 'RANKING'}.png" style="width: 35px; height: 35px;">
             </div>
             <!-- Texto "Nivel Grado" debajo del valor -->
             <div style="font-size: 18px; margin-top: 10px;">Nivel Grado</div>
@@ -368,15 +368,6 @@ const tablaNotas = `
     </div>
 </div>
 
-<script>
-    // Función que devuelve el nombre de la imagen correcta
-    function getRankingImage(rank) {
-        if (rank === 1) return 'R1.png';
-        if (rank === 2) return 'R2.png';
-        if (rank === 3) return 'R3.png';
-        return 'RANKING.png';  // Cualquier número mayor a 3
-    }
-</script>
 
 
 
