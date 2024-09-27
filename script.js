@@ -348,7 +348,7 @@ const tablaNotas = `
             <!-- Columna izquierda con RANKING_C -->
             <div style="text-align: center;">
                 <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-                    <img src="Iconos/${RANKING_C >= 1 && RANKING_C <= 3 ? `R${RANKING_C}` : 'RANKING'}.png" style="width: 35px; height: 35px;">
+                    <img src="Iconos/${RANKING_C >= 1 && RANKING_C <= 3 ? `${RANKING_C}` : 'RANKING'}.png" style="width: 35px; height: 35px;">
                     <span>${RANKING_C}</span>
                 </div>
                 <div style="font-size: 18px; margin-top: 10px;">Nivel Curso</div>
@@ -357,7 +357,7 @@ const tablaNotas = `
             <!-- Columna derecha con RANKING_G -->
             <div style="text-align: center;">
                 <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-                    <img src="Iconos/${RANKING_G >= 1 && RANKING_G <= 3 ? `R${RANKING_G}` : 'RANKING'}.png" style="width: 35px; height: 35px;">
+                    <img src="Iconos/${RANKING_G >= 1 && RANKING_G <= 3 ? `${RANKING_G}` : 'RANKING'}.png" style="width: 35px; height: 35px;">
                     <span>${RANKING_G}</span>
                 </div>
                 <div style="font-size: 18px; margin-top: 10px;">Nivel Grado</div>
