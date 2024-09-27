@@ -264,6 +264,8 @@ const tablaNotas = `
                     const imgExtensions = ['jpg', 'png']; // Extensiones de imagen permitidas
                     let imgExamen1 = '';
                     let imgExamen2 = '';
+                    let imgExamen3 = '';
+                    let imgExamen4 = '';
 
                     // Buscar la imagen del examen según el ID
                     for (const ext of imgExtensions) {
@@ -287,6 +289,30 @@ const tablaNotas = `
                             }
                         } catch (error) {
                             console.error(`Imagen no encontrada: ${imgExamen2}`);
+                        }
+                    }
+
+                    for (const ext of imgExtensions) {
+                        imgExamen3 = `Soportes/${prueba}/${idAlumno}_p3.${ext}`;
+                        try {
+                            const response = await fetch(imgExamen3);
+                            if (response.ok) {
+                                break; // Si encuentra la imagen, se sale del bucle
+                            }
+                        } catch (error) {
+                            console.error(`Imagen no encontrada: ${imgExamen3}`);
+                        }
+                    }
+
+                    for (const ext of imgExtensions) {
+                        imgExamen4 = `Soportes/${prueba}/${idAlumno}_p4.${ext}`;
+                        try {
+                            const response = await fetch(imgExamen4);
+                            if (response.ok) {
+                                break; // Si encuentra la imagen, se sale del bucle
+                            }
+                        } catch (error) {
+                            console.error(`Imagen no encontrada: ${imgExamen4}`);
                         }
                     }
 
@@ -326,6 +352,12 @@ const tablaNotas = `
         </div>
         <div style="width: 100%; max-width: 500px; overflow: hidden;">
             <img src="${imgExamen2}" style="width: 100%; height: auto; object-fit: cover; object-position: center;">
+        </div>
+        <div style="width: 100%; max-width: 500px; overflow: hidden;">
+            <img src="${imgExamen3}" style="width: 100%; height: auto; object-fit: cover; object-position: center;">
+        </div>
+        <div style="width: 100%; max-width: 500px; overflow: hidden;">
+            <img src="${imgExamen4}" style="width: 100%; height: auto; object-fit: cover; object-position: center;">
         </div>
     </div>
                             
