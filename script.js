@@ -384,10 +384,10 @@ const tablaNotas = `
     <!-- Contenedor de las imágenes -->
     <div style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
         <div style="width: 100%; max-width: 500px; overflow: hidden;">
-            <img src="${imgExamen1}" style="width: 100%; height: 100px; object-fit: cover; object-position: center;" onerror="this.onerror=null; this.src='Iconos/NA.png';">
+            <img src="${imgExamen1}" style="width: 100%; height: 250px; object-fit: cover; object-position: center;" onerror="this.onerror=null; this.src='Iconos/NA.png';">
         </div>
         <div style="width: 100%; max-width: 500px; overflow: hidden;">
-            <img src="${imgExamen2}" style="width: 100%; height: 100px; object-fit: cover; object-position: center;" onerror="this.onerror=null; this.src='Iconos/NA.png';">
+            <img src="${imgExamen2}" style="width: 100%; height: 250px; object-fit: cover; object-position: center;" onerror="this.onerror=null; this.src='Iconos/NA.png';">
         </div>
         <div style="width: 100%; max-width: 500px; overflow: hidden;">
             <img src="${imgExamen3}" style="width: 100%; height: auto; object-fit: cover; object-position: center;" onerror="this.onerror=null; this.src='Iconos/NA.png';">
